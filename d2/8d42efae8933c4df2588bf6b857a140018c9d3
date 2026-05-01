@@ -1,0 +1,14 @@
+index.html
+  h_c97fe7454cae08 37,42,44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "d28d42efae8933c4df2588bf6b857a140018c9d3",
+  "prompts": {},
+  "humans": {
+    "h_c97fe7454cae08": {
+      "author": "Sumit Singh"
+    }
+  }
+}
