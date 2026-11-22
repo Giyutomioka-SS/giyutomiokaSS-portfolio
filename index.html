@@ -2,33 +2,38 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07120C" />
+  <meta name="color-scheme" content="dark light" />
 
   <!-- Primary SEO -->
   <title>Sumit Singh | Android Developer · giyutomiokaSS · Tata 1MG</title>
-  <meta name="description" content="Sumit Singh (giyutomiokaSS) — Android Developer at Tata 1MG in Kotlin, Jetpack Compose and GenAI Agents. Open source enthusiast." />
+  <meta name="description" content="Sumit Singh (giyutomiokaSS), Android engineer at Tata 1MG. Kotlin, Jetpack Compose, offline-first apps and GenAI agents. Core contributor to AnkiDroid." />
   <meta name="keywords" content="Sumit Singh, giyutomiokaSS, Android Developer, AnkiDroid, Kotlin, Jetpack Compose, open source, Android engineer, Tata 1MG, MVVM, Hilt, Coroutines, GenAI, Agents, Clean Architecture, Kotlin Multiplatform" />
   <meta name="author" content="Sumit Singh" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://hiisumit.com/" />
   <meta name="google-site-verification" content="iLgA0IIhiWGfq-75v0BgrHjjUz35GfehAX_u3eH106c" />
 
-  <!-- Open Graph (social sharing) -->
+  <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://hiisumit.com/" />
   <meta property="og:title"       content="Sumit Singh | Android Developer · giyutomiokaSS · Tata 1MG" />
-  <meta property="og:description" content="Sumit Singh (giyutomiokaSS) — Android Developer at Tata 1mg specializing in Kotlin, Jetpack Compose and GenAI Agents. Open source enthusiast." />
+  <meta property="og:description" content="Android engineer at Tata 1MG. Kotlin, Jetpack Compose, offline-first apps and GenAI agents. Core contributor to AnkiDroid." />
   <meta property="og:site_name"   content="Sumit Singh Portfolio" />
   <meta property="og:locale"      content="en_US" />
+  <meta property="og:image"       content="https://hiisumit.com/assets/og-image.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <!-- Twitter / X Card -->
+  <!-- Twitter / X -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:site"        content="@giyutomiokaSS_" />
   <meta name="twitter:creator"     content="@giyutomiokaSS_" />
   <meta name="twitter:title"       content="Sumit Singh | Android Developer · giyutomiokaSS · Tata 1MG" />
-  <meta name="twitter:description" content="Sumit Singh (giyutomiokaSS) — Android Developer at Tata 1mg specializing in Kotlin, Jetpack Compose and GenAI Agents. Open source enthusiast." />
+  <meta name="twitter:description" content="Android engineer at Tata 1MG. Kotlin, Jetpack Compose, offline-first apps and GenAI agents. Core contributor to AnkiDroid." />
+  <meta name="twitter:image"       content="https://hiisumit.com/assets/og-image.png" />
 
-  <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -36,8 +41,10 @@
     "name": "Sumit Singh",
     "alternateName": "giyutomiokaSS",
     "url": "https://hiisumit.com/",
+    "image": "https://hiisumit.com/assets/me.jpg",
     "jobTitle": "Android Developer",
-    "description": "Android Developer specializing in Kotlin, Jetpack Compose and GenAI Agents.",
+    "worksFor": { "@type": "Organization", "name": "Tata 1MG" },
+    "description": "Android engineer specializing in Kotlin, Jetpack Compose, offline-first apps and GenAI agents.",
     "knowsAbout": ["Android Development", "Kotlin", "Jetpack Compose", "GenAI Agents", "Open Source Software", "AnkiDroid"],
     "sameAs": [
       "https://github.com/giyutomioka-SS",
@@ -47,480 +54,652 @@
   }
   </script>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
-  <link rel="shortcut icon" href="favicon.svg?v=2" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
+  <link rel="preload" as="image" href="assets/me.jpg" />
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;700;800&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
+  <script>
+    // Before first paint: theme (saved choice, else system) and whether the loader runs.
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      d.setAttribute('data-theme', t);
+      try { if (sessionStorage.getItem('seen')) d.classList.add('no-loader'); } catch (e) {}
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('no-loader');
+    })();
+  </script>
 </head>
 <body>
 
-  <!-- Custom cursor (desktop only) -->
-  <div id="cursor-dot" aria-hidden="true"></div>
-  <div id="cursor-ring" aria-hidden="true"></div>
+  <a class="skip" href="#about">Skip to content</a>
 
-  <div class="bg-blob bg-blob--1" aria-hidden="true"></div>
-  <div class="bg-blob bg-blob--2" aria-hidden="true"></div>
-  <div class="bg-blob bg-blob--3" aria-hidden="true"></div>
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__box">
+      <svg class="loader__ring" viewBox="0 0 120 120">
+        <circle class="loader__track" cx="60" cy="60" r="54" />
+        <circle class="loader__bar" id="loader-bar" cx="60" cy="60" r="54" />
+      </svg>
+      <p class="loader__count"><span id="loader-count">00</span><span class="loader__pct">%</span></p>
+    </div>
+  </div>
 
-  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-    <a href="#hero" class="nav-logo" aria-label="Home">
-      <span class="logo-bracket">&lt;</span>giyutomiokaSS<span class="logo-bracket">/&gt;</span>
-    </a>
+  <!-- Cursor (fine pointers only) -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-    <ul class="nav-links" id="nav-links" role="list">
-      <li><a href="#about"      class="nav-link">about</a></li>
-      <li><a href="#skills"     class="nav-link">skills</a></li>
-      <li><a href="#projects"   class="nav-link">projects</a></li>
-      <li><a href="#experience" class="nav-link">experience</a></li>
-      <li><a href="#contact"    class="nav-link">contact</a></li>
-    </ul>
-
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
-      <span></span>
-      <span></span>
-      <span></span>
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__mark" data-scroll aria-label="Sumit Singh, back to top">giyutomiokaSS</a>
+    <nav aria-label="Main">
+      <ul class="nav__links">
+        <li><a href="#about" data-scroll>About</a></li>
+        <li><a href="#experience" data-scroll>Experience</a></li>
+        <li><a href="#projects" data-scroll>Projects</a></li>
+        <li><a href="#skills" data-scroll>Skills</a></li>
+        <li><a href="#contact" data-scroll>Contact</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <mask id="moon-mask"><rect width="24" height="24" fill="#fff"/><circle class="theme-toggle__bite" cx="17" cy="7" r="6" fill="#000"/></mask>
+        <circle class="theme-toggle__core" cx="12" cy="12" r="6" mask="url(#moon-mask)"/>
+        <g class="theme-toggle__rays">
+          <path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/>
+        </g>
+      </svg>
     </button>
-  </nav>
+    <a class="btn btn--accent btn--sm nav__cta" href="https://drive.google.com/file/d/1zP22Ajhfvt6k3s6LU6d-AkwwSe0VA7wz/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+    <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </header>
 
+  <div class="menu" id="menu" aria-hidden="true">
+    <ul>
+      <li><a href="#about" data-scroll><span>About</span></a></li>
+      <li><a href="#experience" data-scroll><span>Experience</span></a></li>
+      <li><a href="#projects" data-scroll><span>Projects</span></a></li>
+      <li><a href="#skills" data-scroll><span>Skills</span></a></li>
+      <li><a href="#contact" data-scroll><span>Contact</span></a></li>
+    </ul>
+    <a class="btn btn--accent menu__cta" href="https://drive.google.com/file/d/1zP22Ajhfvt6k3s6LU6d-AkwwSe0VA7wz/view?usp=sharing" target="_blank" rel="noopener">Open résumé</a>
+  </div>
 
-  <section id="hero" class="hero">
-    <canvas id="bg-dots" aria-hidden="true"></canvas>
+  <main id="top">
 
-    <div class="hero-content">
-      <div class="hero-badge reveal" data-reveal="fade-up" data-delay="0">
-        <span class="badge-dot"></span>
-        &lt; Android Developer /&gt;
+    <div class="stack">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero" data-no-squeeze>
+      <div class="hero__bg" id="hero-bg">
+        <canvas class="silk" data-silk aria-hidden="true"></canvas>
+        <div class="hero__scrim" aria-hidden="true"></div>
       </div>
 
-      <h1 class="hero-name">
-        <span class="name-line name-line--1">
-          [Sumit
-        </span>
-        <span class="name-line name-line--2">
-          Singh]
-        </span>
-      </h1>
-
-      <div class="hero-tagline">
-        <span class="tagline-static">I </span>
-        <span id="typewriter" aria-label="animated typewriter text"></span>
-      </div>
-
-      <p class="hero-sub reveal" data-reveal="fade-up" data-delay="400">
-        Engineer &nbsp;·&nbsp; Open Source &nbsp;·&nbsp; AnkiDroid Contributor
-      </p>
-
-      <div class="hero-cta reveal" data-reveal="fade-up" data-delay="550">
-        <div class="hero-cta-row">
-          <a href="#experience" class="btn btn--primary">View Experiences</a>
-          <a href="#contact"  class="btn btn--secondary btn-contact">Get in Touch</a>
+      <div class="hero__inner wrap">
+        <div class="hero__status" data-hero-fade>
+          <span class="dot" aria-hidden="true"></span> Open to Android roles
         </div>
-        <a href="https://drive.google.com/file/d/1zP22Ajhfvt6k3s6LU6d-AkwwSe0VA7wz/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn-resume">Download Resume</a>
-      </div>
 
-      <div class="hero-scroll-cta" aria-hidden="true">
-        <span class="scroll-label">scroll</span>
-        <div class="scroll-chevrons">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="hero__stage">
+          <h1 class="hero__name" id="hero-name" aria-label="Sumit Singh">
+            <span class="hero__line hero__line--1" aria-hidden="true">Sumit</span>
+            <span class="hero__line hero__line--2" aria-hidden="true">Singh</span>
+          </h1>
+
+          <figure class="hero__photo" data-hero-photo>
+            <img src="assets/me.jpg" width="880" height="1100" alt="Sumit Singh smiling at a café table, headphones round his neck" fetchpriority="high" />
+          </figure>
+
+          <ul class="hero__roles" id="roles" aria-label="What I do">
+            <li class="is-active"><span class="bar" aria-hidden="true"></span>Android developer</li>
+            <li><span class="bar" aria-hidden="true"></span>Kotlin &amp; Jetpack Compose</li>
+            <li><span class="bar" aria-hidden="true"></span>GenAI agents &amp; MCP</li>
+            <li><span class="bar" aria-hidden="true"></span>AnkiDroid contributor</li>
+          </ul>
         </div>
-      </div>
-    </div>
 
-
-    <div class="hero-visual" aria-hidden="true">
-      <div class="code-float code-float--1">
-        <pre>@Composable
-fun Screen() {
-  AndroidView { ... }
-}</pre>
-      </div>
-      <div class="code-float code-float--2">
-        <pre>viewModel.uiState
-  .collect { state ->
-    render(state)
-  }</pre>
-      </div>
-      <div class="code-float code-float--3">
-        <pre>suspend fun fetch():
-  Result&lt;T&gt;</pre>
-      </div>
-
-      <div class="code-float code-float--4">
-        <pre>
-          @Preview()
-          @Composable()
-          fun PreviewDroid(){</pre>
-      </div>
-
-      <!-- Android Bot SVG -->
-      <div class="android-bot-wrap">
-        <div class="orbit-ring"></div>
-        <div class="orbit-dot orbit-dot--1"></div>
-        <div class="orbit-dot orbit-dot--2"></div>
-
-        <svg class="android-bot" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" aria-label="Android robot mascot">
-          <!-- Antennas -->
-          <line x1="42" y1="38" x2="30" y2="20" stroke="#3DDC84" stroke-width="3" stroke-linecap="round"/>
-          <line x1="78" y1="38" x2="90" y2="20" stroke="#3DDC84" stroke-width="3" stroke-linecap="round"/>
-          <circle cx="30" cy="19" r="4" fill="#3DDC84"/>
-          <circle cx="90" cy="19" r="4" fill="#3DDC84"/>
-          <!-- Head -->
-          <path d="M 20 55 A 40 40 0 0 1 100 55 L 100 75 Q 100 80 95 80 L 25 80 Q 20 80 20 75 Z" fill="#3DDC84"/>
-          <!-- Eyes -->
-          <circle cx="44" cy="62" r="6" fill="#0A0E0F"/>
-          <circle cx="76" cy="62" r="6" fill="#0A0E0F"/>
-          <circle cx="46" cy="60" r="2" fill="#3DDC84"/>
-          <circle cx="78" cy="60" r="2" fill="#3DDC84"/>
-          <!-- Body -->
-          <rect x="18" y="84" width="84" height="44" rx="6" fill="#3DDC84" opacity="0.9"/>
-          <!-- Arms -->
-          <rect x="4"   y="84" width="12" height="32" rx="6" fill="#3DDC84"/>
-          <rect x="104" y="84" width="12" height="32" rx="6" fill="#3DDC84"/>
-          <!-- Legs -->
-          <rect x="30" y="130" width="14" height="10" rx="5" fill="#3DDC84"/>
-          <rect x="76" y="130" width="14" height="10" rx="5" fill="#3DDC84"/>
-          <!-- Chest detail -->
-          <circle cx="50" cy="106" r="5" fill="#0A0E0F" opacity="0.4"/>
-          <circle cx="70" cy="106" r="5" fill="#0A0E0F" opacity="0.4"/>
-          <rect x="54" y="103" width="12" height="6" rx="3" fill="#0A0E0F" opacity="0.4"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-  <section id="about" class="section">
-    <div class="container">
-      <div class="section-header reveal" data-reveal="fade-up">
-        <span class="section-label">// about me</span>
-        <h2 class="section-title">Who I Am</h2>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-text reveal" data-reveal="fade-left" data-delay="100">
-          <p>I'm a <strong>Software Engineer at Tata 1MG</strong>, passionate about building clean, performant mobile experiences. I love working with Kotlin to craft robust applications and tools that real people use every day.</p>
-          <p>I contribute to open-source projects notably <strong>AnkiDroid</strong>, and explore new libraries, technologies, and agents while tinkering with side projects.</p>
-          <p>When I'm not coding, you'll find me  <strong>running or trekking</strong> in the mountains - seeking peace and pushing my limits.</p>
-          <div class="about-stats">
-            <div class="stat-item">
-              <span class="stat-number" data-target="2">0</span><span class="stat-plus">+</span>
-              <span class="stat-label">Years Exp.</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number" data-target="999">0</span><span class="stat-plus">+</span>
-              <span class="stat-label">Bugs Squashed</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number" data-target="99">0</span><span class="stat-plus">+</span>
-              <span class="stat-label">Cups of Coffee</span>
-            </div>
+        <div class="hero__foot">
+          <p class="hero__lede" data-hero-fade>Android engineer at Tata 1MG. I build offline-first apps that thousands of field workers rely on every day.</p>
+          <div class="hero__links" data-hero-fade>
+            <a href="https://github.com/giyutomioka-SS" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://drive.google.com/file/d/1zP22Ajhfvt6k3s6LU6d-AkwwSe0VA7wz/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
           </div>
-        </div>
-
-        <div class="about-terminal reveal" data-reveal="fade-right" data-delay="200">
-          <div class="terminal-header">
-            <span class="terminal-dot terminal-dot--red"></span>
-            <span class="terminal-dot terminal-dot--yellow"></span>
-            <span class="terminal-dot terminal-dot--green"></span>
-            <span class="terminal-title">~/sumit — zsh</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="t-prompt">$</span> <span class="t-cmd">cat about.json</span></p>
-            <pre class="t-output">{
-  "name": "<span class="t-val">Sumit Singh aka giyutomiokaSS</span>",
-  "role": "<span class="t-val">Android Developer</span>",
-  "location": "<span class="t-val">Remote</span>",
-  "loves": [
-    "<span class="t-val">Kotlin</span>",
-    "<span class="t-val">Jetpack Compose</span>",
-    "<span class="t-val">Open Source</span>",
-    "<span class="t-val">Clean Architecture</span>"
-  ],
-  "company": "<span class="t-val">Tata 1MG</span>",
-  "Contributor": "<span class="t-val">AnkiDroid</span>",
-  "available": <span class="t-bool">true</span>
-}</pre>
-            <p class="t-cursor-line"><span class="t-prompt">$</span> <span class="t-blink">▌</span></p>
+          <div class="hero__ctas" data-hero-fade>
+            <a href="#projects" class="btn btn--accent" data-scroll>See my work</a>
+            <a href="#contact" class="btn btn--ghost" data-scroll>Get in touch</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="skills" class="section">
-    <div class="container">
-      <div class="section-header reveal" data-reveal="fade-up">
-        <span class="section-label">// skills</span>
-        <h2 class="section-title">What I Do</h2>
-      </div>
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about">
+      <div class="wrap">
+        <h2 class="outline-word" data-proximity>About</h2>
 
-      <div class="skill-statements">
-
-        <div class="skill-statement reveal" data-reveal="fade-up" data-delay="0">
-          <span class="stmt-num" aria-hidden="true">01</span>
-          <p class="stmt-text">I build native <span class="kw">Android</span> apps — Kotlin, Jetpack Compose, clean architecture, the full ecosystem.</p>
-          <div class="stmt-line" aria-hidden="true"></div>
-        </div>
-
-        <div class="skill-statement reveal" data-reveal="fade-up" data-delay="300">
-          <span class="stmt-num" aria-hidden="true">02</span>
-          <p class="stmt-text">I write <span class="kw">Python</span> &amp; <span class="kw">Java</span> — scripting, automation, agents, mcp servers and whatever gets the job done.</p>
-          <div class="stmt-line" aria-hidden="true"></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="section">
-    <div class="container">
-      <div class="section-header reveal" data-reveal="fade-up">
-        <span class="section-label">// projects</span>
-        <h2 class="section-title">Things I've Built</h2>
-      </div>
-
-      <div class="projects-grid">
-
-        <article class="project-card reveal" data-reveal="scale-in" data-delay="0">
-          <div class="card-corner-accent" aria-hidden="true"></div>
-          <div class="card-header">
-            <div class="card-icon">
-              <!-- Android icon -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3a.403.403 0 000-.57.403.403 0 00-.57 0l-1.44 1.44A5.944 5.944 0 0012 1.5c-.69 0-1.35.12-1.97.33L8.74.39a.403.403 0 00-.57 0 .403.403 0 000 .57l1.3 1.3C8.01 3.01 7 4.62 7 6.5h10c0-1.88-1.01-3.49-2.47-4.34zM10 5H9V4h1v1zm5 0h-1V4h1v1z" fill="#3DDC84"/>
-              </svg>
-            </div>
-            <div class="card-links">
-              <a href="https://github.com/ResQSync/ResQSyncAndroid" target="_blank" rel="noopener" aria-label="GitHub repository">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-              </a>
-            </div>
+        <div class="about__grid">
+          <p class="about__statement" data-rise>I build Android apps people rely on at work.</p>
+          <div class="about__copy">
+            <p data-words>I'm a software engineer at Tata 1MG, building clean, fast mobile experiences in Kotlin. The apps I ship run field operations for thousands of people every day, so they have to work offline, sync when the signal returns and never crash.</p>
+            <p data-words>I contribute to open source, most of all AnkiDroid, and I keep exploring new libraries, GenAI agents and MCP servers through side projects.</p>
+            <p data-words>Away from the keyboard I'm usually running or trekking in the mountains, looking for quiet and pushing my limits.</p>
           </div>
-          <h3 class="card-title">ResQSync</h3>
-          <p class="card-desc">ResQSync is an Android app that helps you keep your loved ones safe through real-time location tracking. It lets you stay connected and monitor family members effortlessly, giving you peace of mind at all times.</p>
-          <div class="card-tags">
-            <span class="tag">Kotlin</span>
-            <span class="tag">MVVM</span>
-            <span class="tag">Firebase</span>
-            <span class="tag">Google Maps API</span>
-            <span class="tag">Material Design</span>
+        </div>
+
+        <figure class="band" data-band>
+          <img src="assets/har-ki-doon.jpg" width="1400" height="1050" loading="lazy" decoding="async" alt="Pine forest falling into the Har ki Doon valley, with snow on the Sankari range behind" />
+          <figcaption>Har ki Doon valley, Uttarakhand. The kind of trail I head for when I log off.</figcaption>
+        </figure>
+
+        <dl class="stats">
+          <div class="stat" data-rise>
+            <dt>Crash-free sessions, up from 87%</dt>
+            <dd><span data-count="99.3" data-decimals="1">99.3</span>%</dd>
+          </div>
+          <div class="stat" data-rise>
+            <dt>Monthly AnkiDroid users I ship to</dt>
+            <dd><span data-count="3">3</span>M+</dd>
+          </div>
+          <div class="stat" data-rise>
+            <dt>Cups of coffee, and counting</dt>
+            <dd><span data-count="99">99</span>+</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    </div>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="exp" id="experience">
+      <div class="wrap">
+        <h2 class="section-title" data-rise>Experience</h2>
+
+        <article class="role">
+          <h3 class="role__co"><span class="mask"><span data-mask>Tata 1MG</span></span></h3>
+          <div class="role__grid">
+            <div class="role__meta" data-rise>
+              <p class="role__metric"><span>87% → 99.3%</span> crash-free rate</p>
+              <p class="role__title">Software Development Engineer</p>
+              <p class="role__when">March 2025 to present</p>
+            </div>
+            <div class="role__body">
+              <ul class="role__points" data-rise>
+                <li>Built a fully offline task workflow that syncs when connectivity returns, cutting task failures by 45% and support issues by 40% across 5K+ daily users.</li>
+                <li>Fixed critical crashes and ANRs, lifting the crash-free rate from 87% to 99.3%.</li>
+                <li>Digitised the mid-mile logistics workflow end to end: 10K+ tasks a day tracked in real time, 60% less manual work.</li>
+                <li>Made high-traffic modules 25% faster to load.</li>
+                <li class="is-extra">Added in-app real-time monitoring and alerts, improving compliance by 35% and cutting third-party costs.</li>
+                <li class="is-extra">Showed route and distance between tasks to field users, reducing travel time by 18% and fuel use by 12%.</li>
+                <li class="is-extra">Launched earnings, incentives, leaderboards and scorecards for 3K+ users; upsell participation rose 30%.</li>
+                <li class="is-extra">Enforced automatic app updates, keeping 95%+ of users on the latest version.</li>
+              </ul>
+              <button class="more" type="button" aria-expanded="false" data-more>Show all 8 results</button>
+              <p class="tags">Kotlin · Android · Offline sync · Software architecture</p>
+            </div>
           </div>
         </article>
 
-        <article class="project-card reveal" data-reveal="scale-in" data-delay="100">
-          <div class="card-corner-accent" aria-hidden="true"></div>
-          <div class="card-header">
-            <div class="card-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="3" stroke="#3DDC84" stroke-width="2"/>
-                <path d="M8 12h8M12 8v8" stroke="#3DDC84" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+        <article class="role">
+          <h3 class="role__co"><span class="mask"><span data-mask>AnkiDroid</span></span></h3>
+          <div class="role__grid">
+            <div class="role__meta" data-rise>
+              <p class="role__metric"><span>3M+</span> monthly users, rated 4.8</p>
+              <p class="role__title">Core contributor, open source</p>
+              <p class="role__when">July 2024 to present</p>
             </div>
-            <div class="card-links">
-              <a href="https://github.com/Giyutomioka-SS/Neer" target="_blank" rel="noopener" aria-label="GitHub repository">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-              </a>
+            <div class="role__body">
+              <ul class="role__points" data-rise>
+                <li>Fix bugs, refine the UI and tune performance in one of the most used open-source Android apps.</li>
+                <li>Built hold-to-record, improving accessibility for 20%+ of active users.</li>
+                <li>Migrated app strings to the Anki backend for better cross-platform compatibility.</li>
+              </ul>
+              <p class="tags">Open source · Kotlin/JVM · Testing · Code review</p>
             </div>
-          </div>
-          <h3 class="card-title">Neer</h3>
-          <p class="card-desc">A water reminder application, Stay hydrated and healthy with Neer – your personal hydration assistant. Set goals, track your water intake, and achieve optimal hydration effortlessly.</p>
-          <div class="card-tags">
-            <span class="tag">Kotlin</span>
-            <span class="tag">Compose</span>
-            <span class="tag">MVVM</span>
-            <span class="tag">Room</span>
           </div>
         </article>
 
-        <article class="project-card reveal" data-reveal="scale-in" data-delay="200">
-          <div class="card-corner-accent" aria-hidden="true"></div>
-          <div class="card-header">
-            <div class="card-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke="#3DDC84" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+        <article class="role">
+          <h3 class="role__co"><span class="mask"><span data-mask>OTPLESS</span></span></h3>
+          <div class="role__grid">
+            <div class="role__meta" data-rise>
+              <p class="role__metric"><span>50+</span> companies integrated</p>
+              <p class="role__title">Mobile Application Software Engineer</p>
+              <p class="role__when">September 2024 to February 2025</p>
             </div>
-            <div class="card-links">
-              <a href="https://github.com/Giyutomioka-SS/NewsHub" target="_blank" rel="noopener" aria-label="GitHub repository">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-              </a>
+            <div class="role__body">
+              <ul class="role__points" data-rise>
+                <li>Integrated the OTPLESS SDK and APIs for silent authentication, smart auth and social sign-in (WhatsApp, Truecaller, Google), raising conversion and security for 50+ companies.</li>
+                <li>Supported the Android, Flutter and React Native SDKs, cutting issue resolution time by 40%.</li>
+              </ul>
+              <p class="tags">Kotlin · Android · SDKs · Authentication</p>
             </div>
           </div>
-          <!-- TODO: Replace with your project -->
-          <h3 class="card-title">NewsHub</h3>
-          <p class="card-desc">An Android app that aggregates top news from multiple sources into a clean, intuitive, and user-friendly interface, with a built-in read-aloud feature to support visually impaired users.</p>
-          <div class="card-tags">
-            <span class="tag">Kotlin</span>
-            <span class="tag">Dagger Hilt</span>
-            <span class="tag">Retrofit</span>
+        </article>
+
+        <article class="role">
+          <h3 class="role__co"><span class="mask"><span data-mask>VITTO</span></span></h3>
+          <div class="role__grid">
+            <div class="role__meta" data-rise>
+              <p class="role__metric"><span>92%</span> unauthorised access blocked</p>
+              <p class="role__title">Software Engineering Intern</p>
+              <p class="role__when">June 2024 to September 2024</p>
+            </div>
+            <div class="role__body">
+              <ul class="role__points" data-rise>
+                <li>Blocked rooted devices, preventing 92% of unauthorised access to user data.</li>
+                <li>Refactored the codebase, fixed login and validation bugs, and added an animated splash and digital gold banner; load times fell 15%.</li>
+              </ul>
+              <p class="tags">Android · Security · UI</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="role">
+          <h3 class="role__co"><span class="mask"><span data-mask>MOLOG</span></span></h3>
+          <div class="role__grid">
+            <div class="role__meta" data-rise>
+              <p class="role__metric"><span>40%</span> lower socket latency</p>
+              <p class="role__title">Android Developer Intern</p>
+              <p class="role__when">September 2023 to November 2023</p>
+            </div>
+            <div class="role__body">
+              <ul class="role__points" data-rise>
+                <li>Shipped auto-start on boot and in-app updates, so devices relaunch and update without anyone touching them.</li>
+                <li>Reworked real-time socket handling and the UI for 40% lower latency and smoother navigation.</li>
+              </ul>
+              <p class="tags">Kotlin · XML · Sockets</p>
+            </div>
           </div>
         </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="experience" class="section">
-    <div class="container">
-      <div class="section-header reveal" data-reveal="fade-up">
-        <span class="section-label">// experience</span>
-        <h2 class="section-title">Work &amp; Contributions</h2>
+    <!-- ============ PROJECTS ============ -->
+    <section class="projects" id="projects" data-no-squeeze>
+      <div class="projects__bg" aria-hidden="true">
+        <div class="projects__sticky">
+          <canvas class="silk" data-silk></canvas>
+          <div class="projects__dim" id="projects-dim"></div>
+        </div>
       </div>
 
-      <div class="timeline">
-
-        <div class="timeline-item reveal" data-reveal="fade-left" data-delay="0">
-          <div class="timeline-dot" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <div class="timeline-header">
-              <h3 class="timeline-role">Software Development Engineer</h3>
-              <span class="timeline-company">TATA 1MG</span>
-            </div>
-            <span class="timeline-period">March 2025 – Present</span>
-            <p class="timeline-desc">◉ Built a fully offline-capable task workflow with auto-sync on connectivity, reducing task failures by 45% and support issues by 40% across 5K+ daily active users, ensuring uninterrupted field operations.</p>
-            <p class="timeline-desc">◉ Improved app stability and performance by resolving critical crashes and ANRs; increased crash-free rate from 87% to 99.3%, significantly enhancing reliability and user experience at scale.</p>
-            <p class="timeline-desc">◉ Digitized end-to-end mid-mile logistics workflow, enabling real-time execution and tracking for 10K+ daily tasks and reducing manual dependency by 60%, improving operational transparency.</p>
-            <p class="timeline-desc">◉ Optimized app responsiveness across high-traffic modules, achieving 25% faster load times and smoother task execution, improving productivity and user efficiency.</p>
-            <p class="timeline-desc">◉ Integrated real-time monitoring and alert system within the app, improving compliance by 35% while reducing operational costs and third-party dependency.</p>
-            <p class="timeline-desc">◉ Enabled intelligent route and distance visibility between tasks for field users, reducing travel time by 18% and fuel consumption by 12%, improving daily operational efficiency.</p>
-            <p class="timeline-desc">◉ Launched earnings transparency, incentives, leaderboard, and performance scorecards for 3K+ users; increased upsell participation by 30% and improved compliance and service quality by 20%.</p>
-            <p class="timeline-desc">◉ Implemented automated app update enforcement ensuring 95%+ users on latest version, reducing production issues and maintaining a consistent, secure user experience.</p>
-            <div class="timeline-tags">
-              <span class="tag">Kotlin</span>
-              <span class="tag">Android</span>
-              <span class="tag">Software Architecture</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal" data-reveal="fade-left" data-delay="0">
-          <div class="timeline-dot" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <div class="timeline-header">
-              <h3 class="timeline-role">Mobile Application SE</h3>
-              <span class="timeline-company">OTPLESS</span>
-            </div>
-            <span class="timeline-period">Sept. 2024 – Feb. 2025</span>
-            <p class="timeline-desc">◉ Integrated Otpless SDK & APIs for seamless silent authentication, smart auth, and multiple social sign-ins (WhatsApp, Truecaller, Google, etc.), boosting user conversion and security for 50+ companies.</p>
-            <p class="timeline-desc">◉ Resolved critical bugs, tested flows, and supported Android, Flutter, and React Native SDKs, improving app stability and reducing issue resolution time by 40%.</p>
-            <div class="timeline-tags">
-              <span class="tag">Kotlin</span>
-              <span class="tag">Android</span>
-              <span class="tag">SDks</span>
-              <span class="tag">Software Architecture</span>
-            </div>
-          </div>
-        </div>
-
-                <div class="timeline-item reveal" data-reveal="fade-left" data-delay="150">
-          <div class="timeline-dot" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <div class="timeline-header">
-              <h3 class="timeline-role">Core Contributor</h3>
-              <span class="timeline-company">AnkiDroid</span>
-            </div>
-            <span class="timeline-period">July. 2024 – Present</span>
-            <p class="timeline-desc">◉ Contributing to a 4.8 stars app with 3M+ monthly users, fixing bugs, refining UI, and optimizing performance.</p>
-            <p class="timeline-desc">◉ Developed hold-to-record functionality, improving accessibility for 20%+ of active users, and migrated app strings to the Anki backend, ensuring better compatibility across platforms.</p>
-            <div class="timeline-tags">
-              <span class="tag">Open Source</span>
-              <span class="tag">Testing</span>
-              <span class="tag">Kotlin/JVM</span>
-              <span class="tag">Code Review</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal" data-reveal="fade-left" data-delay="300">
-          <div class="timeline-dot" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <div class="timeline-header">
-              <h3 class="timeline-role">Software Engineering Intern</h3>
-              <span class="timeline-company">VITTO</span>
-            </div>
-            <span class="timeline-period">June. 2024 – Sep. 2024</span>
-            <p class="timeline-desc">◉ Enhanced security by blocking rooted devices, preventing 92% of unauthorized access and safeguarding user data.</p>
-            <p class="timeline-desc">◉ Refactored the codebase, resolved critical login and validation bugs, and enhanced UI/UX with an animated splash screen and digital gold investment banner, improving app load times by 15%.</p>
-            <div class="timeline-tags">
-              <span class="tag">Android</span>
-              <span class="tag">UI/UX</span>
-              <span class="tag">Bug Fixing</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal" data-reveal="fade-left" data-delay="600">
-          <div class="timeline-dot" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <div class="timeline-header">
-              <h3 class="timeline-role">Android Developer Intern</h3>
-              <span class="timeline-company">MOLOG</span>
-            </div>
-            <span class="timeline-period">Sep. 2023 – Nov. 2023</span>
-            <p class="timeline-desc">◉ Implemented Auto Boot Start & in-app updates, ensuring the app launches automatically after a reboot and enabling seamless direct updates, reducing manual intervention and minimizing downtime.</p>
-            <p class="timeline-desc">◉ Improved UI and optimized real-time socket handling, resulting in 40% lower latency and a noticeably smoother navigation and user experience.</p>
-            <div class="timeline-tags">
-              <span class="tag">Software Development</span>
-              <span class="tag">Kotlin</span>
-              <span class="tag">XML</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="section section--last">
-    <div class="container">
-      <div class="section-header reveal" data-reveal="fade-up">
-        <span class="section-label">// contact</span>
-        <h2 class="section-title">Let's Connect</h2>
+      <div class="projects__head" id="projects-head">
+        <h2 class="outline-word outline-word--xl" data-proximity>Projects</h2>
+        <p class="projects__hint">Three Android apps I designed and built</p>
       </div>
 
-      <div class="contact-content reveal" data-reveal="fade-up" data-delay="100">
-        <p class="contact-intro">I'm always open to interesting projects, collaborations, or just a good tech conversation. Feel free to reach out!</p>
+      <div class="projects__list wrap">
 
-        <div class="contact-links">
+        <!-- ResQSync -->
+        <article class="proj">
+          <h3 class="proj__title"><span class="mask"><span data-mask>ResQSync</span></span></h3>
+          <div class="proj__grid">
+            <a class="proj__media" href="https://github.com/ResQSync/ResQSyncAndroid" target="_blank" rel="noopener" data-follow aria-label="ResQSync on GitHub">
+              <div class="phone" data-ui>
+                <div class="phone__screen app app--rq">
+                  <div class="rq__map" aria-hidden="true">
+                    <svg viewBox="0 0 300 600" preserveAspectRatio="xMidYMid slice">
+                      <rect class="m-land" width="300" height="600"/>
+                      <path class="m-park" d="M150 150 h90 v70 h-90z M20 360 h70 v80 h-70z"/>
+                      <path class="m-water" d="M210 420 C 240 400, 300 410, 320 440 V 620 H 170 C 190 560, 180 470, 210 420Z"/>
+                      <g class="m-road">
+                        <path d="M-10 250 C 80 230, 160 280, 320 245" stroke-width="16"/>
+                        <path d="M70 -10 C 80 160, 50 380, 110 620" stroke-width="13"/>
+                        <path d="M-10 470 C 100 450, 190 500, 320 455" stroke-width="10"/>
+                        <path d="M235 -10 C 225 180, 260 330, 240 620" stroke-width="9"/>
+                        <path d="M-10 120 L 320 160" stroke-width="7"/>
+                      </g>
+                      <path class="m-route" d="M98 300 C 130 285, 170 310, 214 282"/>
+                    </svg>
+                    <span class="rq__pin rq__pin--live" style="left:30%;top:50%"><b>M</b></span>
+                    <span class="rq__pin" style="left:76%;top:21%"><b>P</b></span>
+                    <span class="rq__pin" style="left:20%;top:73%"><b>A</b></span>
+                    <span class="rq__me" style="left:71%;top:47%"></span>
+                  </div>
 
-          <a href="mailto:sumitsinghkoranga7@gmail.com" class="contact-link" aria-label="Send email">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
+                  <div class="sb"><span>9:41</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
+
+                  <div class="rq__top">
+                    <span class="rq__circle"><img src="assets/resqsync-icon.png" width="22" height="22" alt="" /> Family circle</span>
+                    <span class="av av--me">S</span>
+                  </div>
+
+                  <div class="rq__sheet">
+                    <span class="grab" aria-hidden="true"></span>
+                    <p class="rq__sheet-h">3 people sharing</p>
+                    <ul class="rq__people">
+                      <li><span class="av av--a">M</span><span><b>Mom</b><small>At office · 1.4 km</small></span><em>Now</em></li>
+                      <li><span class="av av--b">P</span><span><b>Papa</b><small>Driving · 4.2 km</small></span><em>2 min</em></li>
+                      <li><span class="av av--c">A</span><span><b>Anu</b><small>At home · 8.9 km</small></span><em>5 min</em></li>
+                    </ul>
+                    <span class="rq__sos">SOS alert</span>
+                  </div>
+                </div>
+              </div>
+              <span class="pill-follow" aria-hidden="true">View on GitHub</span>
+            </a>
+            <div class="proj__text" data-rise>
+              <p>Keeps families connected through real-time location sharing. See where your people are, and know when they arrive somewhere safe.</p>
+              <p class="tags">Kotlin · MVVM · Firebase · Google Maps API · Material Design</p>
+              <a class="btn btn--ghost" href="https://github.com/ResQSync/ResQSyncAndroid" target="_blank" rel="noopener">View code</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Neer (live) -->
+        <article class="proj proj--flip">
+          <h3 class="proj__title"><span class="mask"><span data-mask>Neer</span></span></h3>
+          <div class="proj__grid">
+            <div class="proj__media proj__media--pair">
+              <div class="phone phone--live" data-ui id="neer">
+                <div class="phone__screen app app--neer">
+                  <div class="sb"><span>2:14</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
+                  <div class="neer__top">
+                    <img src="assets/neer-icon.png" width="36" height="36" alt="" />
+                    <span><small>Good afternoon</small><b>Today</b></span>
+                  </div>
+
+                  <div class="neer__glass">
+                    <svg viewBox="0 0 200 200" aria-hidden="true">
+                      <defs><clipPath id="neer-clip"><circle cx="100" cy="100" r="88"/></clipPath></defs>
+                      <circle class="neer__bowl" cx="100" cy="100" r="88"/>
+                      <g clip-path="url(#neer-clip)">
+                        <g id="neer-water" class="neer__water" style="transform: translateY(120px)">
+                          <path class="neer__wave neer__wave--back" d="M0 10 Q 25 0 50 10 T 100 10 T 150 10 T 200 10 T 250 10 T 300 10 T 350 10 T 400 10 V 220 H 0 Z"/>
+                          <path class="neer__wave" d="M0 10 Q 25 20 50 10 T 100 10 T 150 10 T 200 10 T 250 10 T 300 10 T 350 10 T 400 10 V 220 H 0 Z"/>
+                        </g>
+                      </g>
+                      <circle class="neer__rim" cx="100" cy="100" r="94"/>
+                    </svg>
+                    <p class="neer__amount" aria-live="polite"><b id="neer-ml">1,250</b><small>of 3,000 ml</small></p>
+                  </div>
+
+                  <p class="neer__pct"><span id="neer-pct">42%</span> of today's goal</p>
+
+                  <div class="neer__quick" role="group" aria-label="Log water">
+                    <button type="button" data-add="150">+150 ml</button>
+                    <button type="button" data-add="250" class="is-main">+250 ml</button>
+                    <button type="button" data-add="500">+500 ml</button>
+                  </div>
+
+                  <ul class="neer__log" id="neer-log">
+                    <li><span class="drop" aria-hidden="true"></span><b>500 ml</b><em>1:05 PM</em></li>
+                    <li><span class="drop" aria-hidden="true"></span><b>250 ml</b><em>11:20 AM</em></li>
+                    <li><span class="drop" aria-hidden="true"></span><b>500 ml</b><em>8:10 AM</em></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="phone phone--side" data-ui aria-hidden="true">
+                <div class="phone__screen app app--lock">
+                  <div class="sb"><span></span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
+                  <p class="lock__time">2:40</p>
+                  <p class="lock__date">Sunday, 22 November</p>
+                  <div class="lock__note">
+                    <img src="assets/neer-icon.png" width="32" height="32" alt="" />
+                    <span>
+                      <small>Neer · now</small>
+                      <b>Time for a sip</b>
+                      <span class="lock__body">You're 1,750 ml from today's goal. A glass now keeps you on track.</span>
+                    </span>
+                  </div>
+                  <div class="lock__actions"><span>Log 250 ml</span><span>Snooze</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="proj__text" data-rise>
+              <p>A water reminder that helps you stay hydrated. Set a goal, log every glass and get a nudge when it's time to drink. Try it: tap a button on the phone and watch the glass fill.</p>
+              <p class="tags">Kotlin · Jetpack Compose · MVVM · Room · WorkManager</p>
+              <a class="btn btn--ghost" href="https://github.com/Giyutomioka-SS/Neer" target="_blank" rel="noopener">View code</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- NewsHub -->
+        <article class="proj">
+          <h3 class="proj__title"><span class="mask"><span data-mask>NewsHub</span></span></h3>
+          <div class="proj__grid">
+            <a class="proj__media" href="https://github.com/Giyutomioka-SS/NewsHub" target="_blank" rel="noopener" data-follow aria-label="NewsHub on GitHub">
+              <div class="phone" data-ui>
+                <div class="phone__screen app app--nh">
+                  <div class="sb"><span>8:02</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
+                  <div class="nh__top">
+                    <span><small>Sunday, 22 November</small><b>Your briefing</b></span>
+                    <img src="assets/newshub-icon.png" width="34" height="34" alt="" />
+                  </div>
+                  <div class="nh__chips"><span class="is-on">For you</span><span>India</span><span>Tech</span><span>Sport</span></div>
+
+                  <div class="nh__hero">
+                    <svg viewBox="0 0 320 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                      <rect width="320" height="170" fill="#4F6F7F"/>
+                      <path d="M0 118 Q 60 96 120 112 T 240 104 T 320 108 V170 H0Z" fill="#2E5948"/>
+                      <path d="M0 140 Q 80 124 160 138 T 320 132 V170 H0Z" fill="#244839"/>
+                      <ellipse cx="110" cy="46" rx="58" ry="22" fill="#B9C9D2"/>
+                      <ellipse cx="170" cy="40" rx="50" ry="26" fill="#D2DEE4"/>
+                      <ellipse cx="226" cy="54" rx="40" ry="18" fill="#B9C9D2"/>
+                      <g stroke="#D2DEE4" stroke-width="2" stroke-linecap="round" opacity=".8">
+                        <path d="M100 76l-6 16M130 74l-6 16M160 76l-6 16M190 74l-6 16M220 76l-6 16M115 98l-6 16M145 98l-6 16M175 98l-6 16M205 98l-6 16"/>
+                      </g>
+                    </svg>
+                    <span class="nh__hero-text">
+                      <small>The Hindu · 12 min read</small>
+                      <b>Monsoon reaches Kerala two days early</b>
+                    </span>
+                  </div>
+
+                  <div class="nh__item">
+                    <svg viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#2B3A55"/><rect x="18" y="18" width="24" height="24" rx="2" fill="#8FA3C4"/><path d="M23 12v6M30 12v6M37 12v6M23 42v6M30 42v6M37 42v6M12 23h6M12 30h6M12 37h6M42 23h6M42 30h6M42 37h6" stroke="#8FA3C4" stroke-width="2"/></svg>
+                    <span><small>Reuters · 1 h</small><b>Chipmakers lift guidance on AI demand</b></span>
+                  </div>
+                  <div class="nh__item">
+                    <svg viewBox="0 0 60 60" aria-hidden="true"><rect width="60" height="60" fill="#3E7A4A"/><ellipse cx="30" cy="46" rx="28" ry="9" fill="#5E9C63"/><circle cx="30" cy="26" r="10" fill="#C0392B"/><path d="M23 20 Q30 26 23 32 M37 20 Q30 26 37 32" stroke="#F3D9D4" stroke-width="1.5" fill="none"/></svg>
+                    <span><small>ESPN · 2 h</small><b>India seal the series in Chennai</b></span>
+                  </div>
+
+                  <div class="nh__player">
+                    <span class="nh__play" aria-hidden="true"></span>
+                    <span><small>Reading aloud</small><b>Monsoon reaches Kerala…</b></span>
+                    <span class="nh__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                  </div>
+                </div>
+              </div>
+              <span class="pill-follow" aria-hidden="true">View on GitHub</span>
+            </a>
+            <div class="proj__text" data-rise>
+              <p>Brings top stories from many sources into one clean feed, with a built-in read-aloud mode for visually impaired readers.</p>
+              <p class="tags">Kotlin · Dagger Hilt · Retrofit · Text-to-speech</p>
+              <a class="btn btn--ghost" href="https://github.com/Giyutomioka-SS/NewsHub" target="_blank" rel="noopener">View code</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="skills" id="skills">
+      <div class="wrap">
+        <div class="skills__head">
+          <h2 class="section-title" data-rise>What I work with</h2>
+          <p class="skills__hint" data-rise><span class="hint-fine">Hover a skill to stop the orbit and read more.</span><span class="hint-touch">Tap a skill to read more.</span></p>
+        </div>
+
+        <div class="skills__layout">
+          <div class="tree" data-tree>
+            <h3 class="tree__title"><span class="tree__node" aria-hidden="true"></span>Android</h3>
+            <ul class="tree__list">
+              <li>Coroutines &amp; Flow</li>
+              <li>MVVM &amp; Clean Architecture</li>
+              <li>Jetpack Compose</li>
+              <li>XML &amp; ViewBinding</li>
+              <li>Room</li>
+              <li>WorkManager</li>
+              <li>Retrofit &amp; OkHttp</li>
+              <li>Hilt &amp; Koin</li>
+              <li>Google Maps SDK</li>
+              <li>Firebase</li>
+            </ul>
+            <svg class="tree__wires" aria-hidden="true"></svg>
+          </div>
+
+          <div class="orbit" id="orbit">
+            <div class="orbit__ring orbit__ring--outer" aria-hidden="true"></div>
+            <div class="orbit__ring orbit__ring--inner" aria-hidden="true"></div>
+            <div class="orbit__spin" id="orbit-spin"></div>
+            <div class="orbit__core" aria-hidden="true">Skills</div>
+            <div class="orbit__card" id="orbit-card" role="status" aria-live="polite">
+              <p class="orbit__card-name"></p>
+              <p class="orbit__card-level"></p>
+              <p class="orbit__card-desc"></p>
+            </div>
+            <noscript><p class="orbit__fallback">Kotlin, Jetpack Compose, Android, Java, Python, Firebase, SQLite and Room, Gradle, Git, GitHub Actions</p></noscript>
+          </div>
+
+          <div class="tree tree--right" data-tree>
+            <h3 class="tree__title"><span class="tree__node" aria-hidden="true"></span>Tools &amp; AI</h3>
+            <ul class="tree__list">
+              <li>GenAI agents</li>
+              <li>MCP servers</li>
+              <li>Python scripting</li>
+              <li>Git &amp; code review</li>
+              <li>Gradle</li>
+              <li>CI/CD</li>
+              <li>JUnit &amp; Espresso</li>
+              <li>Kotlin Multiplatform</li>
+            </ul>
+            <svg class="tree__wires" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact">
+      <div class="marquee" id="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marquee-track">
+          <div class="marquee__group">
+            <span>Open to Android roles</span><i></i>
+            <span class="o">Kotlin &amp; Compose</span><i></i>
+            <span>Offline-first apps</span><i></i>
+            <span class="o">Open source at AnkiDroid</span><i></i>
+          </div>
+          <div class="marquee__group">
+            <span>Open to Android roles</span><i></i>
+            <span class="o">Kotlin &amp; Compose</span><i></i>
+            <span>Offline-first apps</span><i></i>
+            <span class="o">Open source at AnkiDroid</span><i></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+
+
+        <h2 class="contact__title" id="talk">
+          <span class="contact__title-text">Let's talk</span>
+          <canvas id="talk-canvas" aria-hidden="true"></canvas>
+        </h2>
+
+        <div class="contact__row">
+          <div class="contact__blurb" data-blurb>
+            <p>I'm open to Android roles, collaborations and a good tech conversation.</p>
+            <p class="muted">Based in India, working remote. It's <time id="clock">--:--</time> here now.</p>
+          </div>
+          <a class="cta-round" id="cta-round" href="mailto:sumitsinghkoranga7@gmail.com?subject=Hello%20Sumit" data-email data-magnet="0.35" aria-label="Email Sumit: start a conversation">
+            <svg class="cta-round__ring" viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+              <text><textPath href="#circ" textLength="485">Start a conversation • Start a conversation •</textPath></text>
             </svg>
-            <span>sumitsinghkoranga7@gmail.com</span>
+            <svg class="cta-round__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
           </a>
-
-          <a href="https://github.com/giyutomioka-SS" target="_blank" rel="noopener" class="contact-link" aria-label="GitHub profile">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-            <span>github.com/giyutomioka-SS</span>
-          </a>
-
-          <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener" class="contact-link" aria-label="LinkedIn profile">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            <span>linkedin.com/sumit-singh07</span>
-          </a>
-
-          <a href="https://x.com/sumit_singhhh" target="_blank" rel="noopener" class="contact-link" aria-label="X (Twitter) profile">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            <span>x.com/sumit_singhhh</span>
-          </a>
-
         </div>
       </div>
-    </div>
-  </section>
 
+      <div class="wrap">
+        <ul class="rows">
+          <li class="row">
+            <a href="mailto:sumitsinghkoranga7@gmail.com?subject=Hello%20Sumit" data-email>
+              <span class="row__label">Email</span>
+              <span class="row__swap"><span>sumitsinghkoranga7@gmail.com</span><span>Write me an email</span></span>
+            </a>
+            <button class="row__copy" type="button" data-copy="sumitsinghkoranga7@gmail.com" aria-label="Copy email address">Copy</button>
+          </li>
+          <li class="row">
+            <a href="tel:+919990487099">
+              <span class="row__label">Phone</span>
+              <span class="row__swap"><span>+91 99904 87099</span><span>Call me</span></span>
+            </a>
+            <button class="row__copy" type="button" data-copy="+919990487099" aria-label="Copy phone number">Copy</button>
+          </li>
+          <li class="row">
+            <a href="https://wa.me/919990487099?text=Hi%20Sumit%2C" target="_blank" rel="noopener">
+              <span class="row__label">WhatsApp</span>
+              <span class="row__swap"><span>+91 99904 87099</span><span>Say hi on WhatsApp</span></span>
+            </a>
+          </li>
+          <li class="row">
+            <a href="https://github.com/giyutomioka-SS" target="_blank" rel="noopener">
+              <span class="row__label">GitHub</span>
+              <span class="row__swap"><span>giyutomioka-SS</span><span>Open GitHub</span></span>
+            </a>
+          </li>
+          <li class="row">
+            <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener">
+              <span class="row__label">LinkedIn</span>
+              <span class="row__swap"><span>sumit-singh07</span><span>Connect on LinkedIn</span></span>
+            </a>
+          </li>
+          <li class="row">
+            <a href="https://x.com/sumit_singhhh" target="_blank" rel="noopener">
+              <span class="row__label">X</span>
+              <span class="row__swap"><span>@sumit_singhhh</span><span>Follow on X</span></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <p>Built with <span class="footer-heart" aria-label="love">&lt;3</span> using vanilla HTML, CSS &amp; JS &nbsp;·&nbsp; <span id="footer-year"></span></p>
+    <div class="footer__cols wrap">
+      <div>
+        <p class="footer__h">Sumit Singh</p>
+        <p>Android engineer at Tata 1MG</p>
+        <p>Core contributor, AnkiDroid</p>
+      </div>
+      <div>
+        <p class="footer__h">Pages</p>
+        <a href="#about" data-scroll>About</a>
+        <a href="#experience" data-scroll>Experience</a>
+        <a href="#projects" data-scroll>Projects</a>
+        <a href="#skills" data-scroll>Skills</a>
+      </div>
+      <div>
+        <p class="footer__h">Elsewhere</p>
+        <a href="https://github.com/giyutomioka-SS" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/sumit_singhhh" target="_blank" rel="noopener">X</a>
+      </div>
+      <div class="footer__top">
+        <button class="btn btn--dark" type="button" id="to-top" data-magnet="0.3">Back to top</button>
+      </div>
+    </div>
+    <p class="footer__word" aria-hidden="true"><span>Sumit Singh</span></p>
+    <p class="footer__legal wrap">© <span id="year">2026</span> Sumit Singh. Built by hand with HTML, CSS and GSAP. Valley photograph: “Har ki doon valley, Sankari Range, Uttarakhand” by Ash1091patil, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/w/index.php?curid=82414305" target="_blank" rel="noopener">Wikimedia Commons</a>. Skill icons from Simple Icons.</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
-  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+  <script src="app.js?v=7" defer></script>
 </body>
 </html>
