@@ -1,0 +1,27 @@
+style.css
+  82b2143f92132a9d 51-55,57,59,61-65,67-68,168,170,186-202,244,287,517,519-522,709-728,730-761,766-772
+app.js
+  82b2143f92132a9d 175-180,183-190,193-195,198-201,203,276-293,1001
+index.html
+  82b2143f92132a9d 64,98-107,350-351,392-412,426,494-495,538-572,753
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "1630031e7bd991dde8534317a2a7bf1bf8fd4774",
+  "prompts": {
+    "82b2143f92132a9d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d5d1dde8-b4d0-4a41-927d-2fe786806aa7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Sumit Singh",
+      "messages": [],
+      "total_additions": 236,
+      "total_deletions": 111,
+      "accepted_lines": 4279,
+      "overriden_lines": 1
+    }
+  }
+}
