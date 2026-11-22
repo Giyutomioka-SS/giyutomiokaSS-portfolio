@@ -175,28 +175,36 @@ html.is-loading, html.is-loading body { overflow: hidden; }
 /* ---------- Cursor ---------- */
 .cursor { position: fixed; inset: 0; pointer-events: none; z-index: 9999; display: none; }
 .cursor .bot {
-  position: absolute; left: 0; top: 0; width: 28px; height: 24px;
-  margin: -17px 0 0 -14px; will-change: translate; transform-origin: 14px 17px;
+  position: absolute; left: 0; top: 0; width: 32px; height: 30px;
+  margin: -14px 0 0 -16px; will-change: translate; transform-origin: 16px 14px;
 }
 .cursor .bot svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .cursor .head { transition: scale .3s cubic-bezier(.34, 1.56, .64, 1), rotate .15s linear; }
-.bot .dome { fill: var(--accent); stroke: rgba(var(--shadow-rgb), .35); stroke-width: 1; }
-.bot .ant { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; }
-.bot .tip { fill: var(--accent); }
-.bot .ants { transform-box: fill-box; transform-origin: 50% 100%; }
+.cursor .head svg { filter: drop-shadow(0 4px 5px rgba(0, 0, 0, .35)); } /* taste-skill-ignore: the cursor bot floats */
+.bot .shell { fill: var(--accent); stroke: rgba(var(--shadow-rgb), .35); stroke-width: 1; }
+.bot .visor { fill: #0B1F14; }
+.bot .eye rect { fill: #C9FFE0; }
+.bot .glint { fill: #FFFFFF; }
+.bot .ground { fill: rgba(var(--shadow-rgb), .45); transform-box: fill-box; transform-origin: center; }
 .bot .eye { transform-box: fill-box; transform-origin: center; transition: transform .12s ease, opacity .15s; }
-.bot .eye ellipse { fill: #FFFFFF; }
-.bot .pupil { fill: var(--on-accent); }
-.bot .happy { fill: none; stroke: var(--on-accent); stroke-width: 1.6; stroke-linecap: round; opacity: 0; transition: opacity .15s; }
+.bot .happy { fill: none; stroke: #C9FFE0; stroke-width: 1.7; stroke-linecap: round; opacity: 0; transition: opacity .15s, stroke .2s; }
+.bot .shell, .bot .visor { transition: fill .2s; }
 .bot.blink .eye { transform: scaleY(.1); }
 .bot.is-happy .eye-open { opacity: 0; }
 .bot.is-happy .happy { opacity: 1; }
-.bot.is-happy .ants { animation: antWiggle .6s ease-in-out infinite; }
-.bot.is-happy .dome, .bot.is-happy .tip { fill: var(--ink); }
-.bot.is-happy .ant { stroke: var(--ink); }
-.bot.is-happy .happy { stroke: var(--bg); }
-.bot .dome, .bot .tip, .bot .ant, .bot .happy { transition: fill .2s, stroke .2s, opacity .15s; }
-@keyframes antWiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+/* over links and buttons: ink body so it reads on the green buttons, plus a little hop */
+.bot.is-happy .shell { fill: var(--ink); }
+.bot.is-happy .visor { fill: var(--bg); }
+.bot.is-happy .happy { stroke: var(--ink); }
+.bot.is-happy .body { animation: botHop .45s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes botHop { 0% { transform: translateY(0); } 40% { transform: translateY(-3px); } 100% { transform: translateY(0); } }
+/* calm idle: a slow bob, a breathing ground shade and glancing eyes */
+.bot.is-idle .body { animation: botBob 2.4s ease-in-out infinite; }
+.bot.is-idle .ground { animation: botGround 2.4s ease-in-out infinite; }
+.bot.is-idle .glance { animation: botGlance 4.8s ease-in-out infinite; }
+@keyframes botBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+@keyframes botGround { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.8); opacity: .7; } }
+@keyframes botGlance { 0%, 35%, 100% { transform: translateX(0); } 45%, 60% { transform: translateX(-1.6px); } 70%, 85% { transform: translateX(1.6px); } }
 @media (hover: hover) and (pointer: fine) {
   .has-cursor .cursor { display: block; }
   .has-cursor, .has-cursor * { cursor: none !important; }

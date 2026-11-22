@@ -184,20 +184,25 @@
   }
 
   /* ---------------- Cursor ---------------- */
-  /* ---------------- Cursor: an Android-style bot (dome head) with live eyes ---------------- */
+  /* ---------------- Cursor: a small rounded bot with big expressive eyes ---------------- */
   const BOT_SVG = (live) => `
-    <svg viewBox="0 0 28 24" aria-hidden="true">
-      <g class="ants"><path class="ant" d="M9 11 5.2 4.2M19 11l3.8-6.8"/><circle class="tip" cx="5" cy="3.8" r="1.6"/><circle class="tip" cx="23" cy="3.8" r="1.6"/></g>
-      <path class="dome" d="M2 22.5a12 12 0 0 1 24 0Z"/>
-      <g class="eye eye-open"><ellipse cx="9.6" cy="17" rx="2.4" ry="2.6"/>${live ? '<circle class="pupil" cx="9.6" cy="17.2" r="1.3"/>' : ''}</g>
-      <g class="eye eye-open"><ellipse cx="18.4" cy="17" rx="2.4" ry="2.6"/>${live ? '<circle class="pupil" cx="18.4" cy="17.2" r="1.3"/>' : ''}</g>
-      ${live ? '<path class="happy" d="M7.4 17.6q2.2-3 4.4 0M16.2 17.6q2.2-3 4.4 0"/>' : ''}
+    <svg viewBox="0 0 32 30" aria-hidden="true">
+      ${live ? '<ellipse class="ground" cx="16" cy="28" rx="9" ry="1.8"/>' : ''}
+      <g class="body">
+        <rect class="shell" x="3" y="3" width="26" height="22" rx="11"/>
+        <rect class="visor" x="7" y="8" width="18" height="12" rx="6"/>
+        <g class="eyes"><g class="glance">
+          <g class="eye eye-open"><rect x="10.4" y="10.6" width="4.4" height="6.6" rx="2.2"/>${live ? '<circle class="glint" cx="13.5" cy="12.1" r=".9"/>' : ''}</g>
+          <g class="eye eye-open"><rect x="17.2" y="10.6" width="4.4" height="6.6" rx="2.2"/>${live ? '<circle class="glint" cx="20.3" cy="12.1" r=".9"/>' : ''}</g>
+          ${live ? '<path class="happy" d="M10.2 15.4q2.4-3.2 4.8 0M17 15.4q2.4-3.2 4.8 0"/>' : ''}
+        </g></g>
+      </g>
     </svg>`;
 
   function initCursor() {
     if (!fine || reduce || !hasGsap) return;
     const host = $('#cursor');
-    const N = 6;
+    const N = 10;
     const make = (cls, live) => {
       const el = document.createElement('i');
       el.className = 'bot ' + cls;
@@ -208,17 +213,17 @@
     // trail first so the live bot paints on top
     const trail = Array.from({ length: N }, (_, i) => {
       const el = make('ghost', false);
-      el.style.opacity = String(.45 * (1 - i / N));
-      el.style.scale = String(.85 - (i / N) * .4);
+      el.style.opacity = String(.4 * (1 - i / N));
+      el.style.scale = String(.85 - (i / N) * .5);
       return { el, x: -100, y: -100 };
     });
     const head = make('head', true);
-    const pupils = $$('.pupil', head);
+    const eyes = $('.eyes', head);
     root.classList.add('has-cursor');
     G.set(host, { opacity: 0 });
 
     const p = { x: -100, y: -100 }, last = { x: -100, y: -100 }, look = { x: 0, y: 0 };
-    let shown = false, hovering = false, pressed = false, tilt = 0;
+    let shown = false, hovering = false, pressed = false, tilt = 0, still = 0;
     const sel = 'a, button, [role="switch"], [data-cursor=hover]';
     // scale/rotate via individual CSS properties only; tweening `transform` would bake the position in
     const setScale = () => { head.style.scale = String((hovering ? 1.35 : 1) * (pressed ? .8 : 1)); };
@@ -260,10 +265,13 @@
       look.x += (clamp(vx / 6, -2, 2) - look.x) * ease;
       look.y += (clamp(vy / 6, -1.5, 1.5) - look.y) * ease;
       tilt += (clamp(vx * .9, -12, 12) - tilt) * ease;
-      pupils.forEach((pu) => pu.setAttribute('transform', `translate(${look.x.toFixed(2)} ${look.y.toFixed(2)})`));
+      eyes.setAttribute('transform', `translate(${look.x.toFixed(2)} ${look.y.toFixed(2)})`);
+      // calm idle: after a moment without movement the bot bobs and glances around
+      still = Math.abs(vx) + Math.abs(vy) > .3 ? 0 : still + dt;
+      head.classList.toggle('is-idle', still > 1200 && !hovering);
       head.style.translate = `${p.x}px ${p.y}px`;
       head.style.rotate = `${tilt.toFixed(2)}deg`;
-      const k = 1 - Math.pow(.6, f);
+      const k = 1 - Math.pow(.62, f);
       let px = p.x, py = p.y;
       trail.forEach((s) => {
         s.x += (px - s.x) * k; s.y += (py - s.y) * k;
