@@ -107,20 +107,39 @@
     else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
   }
 
-  /* ---------------- Loader ---------------- */
+  /* ---------------- Loader (follows the reference: every load, scroll locked) ---------------- */
   function initLoader(onReveal) {
     const loader = $('#loader');
-    try { sessionStorage.setItem('seen', '1'); } catch (e) { /* ignore */ }
-    if (!loader || root.classList.contains('no-loader') || !hasGsap) {
+    if (!loader || !hasGsap) {
+      root.classList.remove('is-loading');
       if (loader) loader.remove();
       onReveal();
       return;
     }
     root.classList.add('is-loading');
     if (lenis) lenis.stop();
+    window.scrollTo(0, 0);
+
+    // block every way of scrolling while the loader is up
+    const stop = (e) => { if (!e.ctrlKey) e.preventDefault(); };
+    const keys = new Set([' ', 'Spacebar', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown']);
+    const onKey = (e) => { if (keys.has(e.key)) e.preventDefault(); };
+    const pin = () => { if (scrollY !== 0) window.scrollTo(0, 0); };
+    window.addEventListener('wheel', stop, { passive: false });
+    window.addEventListener('touchmove', stop, { passive: false });
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('scroll', pin);
+    const unlock = () => {
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchmove', stop);
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('scroll', pin);
+      root.classList.remove('is-loading');
+    };
 
     const bar = $('#loader-bar');
     const count = $('#loader-count');
+    const box = $('#loader-box');
     const L = 2 * Math.PI * 54;
     bar.style.strokeDasharray = L;
     bar.style.strokeDashoffset = L;
@@ -129,75 +148,122 @@
       bar.style.strokeDashoffset = L * (1 - state.v / 100);
       count.textContent = String(Math.round(state.v)).padStart(2, '0');
     };
-    const crawl = G.to(state, { v: 88, duration: .6, ease: 'power2.out', onUpdate: render });
 
-    const img = $('.hero__photo img');
-    const imgReady = img && !img.complete ? new Promise((res) => { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); }) : Promise.resolve();
-    const ready = Promise.all([document.fonts ? document.fonts.ready : null, imgReady, new Promise((r) => setTimeout(r, 350))]);
-    const cap = new Promise((r) => setTimeout(r, 700));
+    const loops = [];
+    if (!reduce) {
+      G.from(box, { opacity: 0, y: 16, duration: .8, ease: 'power3.out' });
+      loops.push(G.to('#loader-orbit', { rotation: 360, duration: 9, repeat: -1, ease: 'none' }));
+      loops.push(G.fromTo('#loader-glow', { scale: .9, opacity: .2 }, { scale: 1.2, opacity: .45, duration: 1.6, repeat: -1, yoyo: true, ease: 'sine.inOut' }));
+    }
+    const crawl = G.to(state, { v: 88, duration: 3, ease: 'power2.out', onUpdate: render });
 
-    Promise.race([ready, cap]).then(() => {
+    const timeout = (ms) => new Promise((r) => setTimeout(r, ms));
+    const imgs = $$('img').filter((i) => i.loading !== 'lazy').map((img) => img.complete ? Promise.resolve() :
+      Promise.race([new Promise((r) => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); }), timeout(8000)]));
+    const fonts = document.fonts ? Promise.race([document.fonts.ready, timeout(2500)]) : Promise.resolve();
+    const loaded = document.readyState === 'complete' ? Promise.resolve() : new Promise((r) => window.addEventListener('load', r, { once: true }));
+
+    Promise.all([...imgs, fonts, loaded, timeout(1800)]).then(() => {
       crawl.kill();
       G.to(state, {
-        v: 100, duration: .2, ease: 'power2.out', onUpdate: render,
-        onComplete: () => {
-          G.timeline({ onComplete: () => loader.remove() })
-            .to('.loader__box', { opacity: 0, scale: .94, duration: .25, ease: 'power2.in' }, 0)
-            .to(loader, { yPercent: -100, duration: .7, ease: 'power4.inOut' }, .1)
+        v: 100, duration: .6, ease: 'power2.out', onUpdate: render,
+        onComplete: () => G.delayedCall(.2, () => {
+          G.timeline({ onComplete: () => { loops.forEach((t) => t.kill()); loader.remove(); } })
+            .to(box, { opacity: 0, scale: .9, duration: .45, ease: 'power2.in' }, .1)
+            .to(loader, { yPercent: -100, duration: 1, ease: 'power4.inOut' }, .45)
             .add(() => {
-              root.classList.remove('is-loading');
-              if (lenis) lenis.start();
+              unlock();
+              window.scrollTo(0, 0);
+              if (lenis) { lenis.scrollTo(0, { immediate: true }); lenis.start(); }
               onReveal();
-            }, .2);
-        },
+            }, .75)
+            .add(() => { if (ST) ST.refresh(); });
+        }),
       });
     });
   }
 
   /* ---------------- Cursor ---------------- */
+  /* ---------------- Cursor: an Android-style bot (dome head) with live eyes ---------------- */
+  const BOT_SVG = (live) => `
+    <svg viewBox="0 0 28 24" aria-hidden="true">
+      <g class="ants"><path class="ant" d="M9 11 5.2 4.2M19 11l3.8-6.8"/><circle class="tip" cx="5" cy="3.8" r="1.6"/><circle class="tip" cx="23" cy="3.8" r="1.6"/></g>
+      <path class="dome" d="M2 22.5a12 12 0 0 1 24 0Z"/>
+      <g class="eye eye-open"><ellipse cx="9.6" cy="17" rx="2.4" ry="2.6"/>${live ? '<circle class="pupil" cx="9.6" cy="17.2" r="1.3"/>' : ''}</g>
+      <g class="eye eye-open"><ellipse cx="18.4" cy="17" rx="2.4" ry="2.6"/>${live ? '<circle class="pupil" cx="18.4" cy="17.2" r="1.3"/>' : ''}</g>
+      ${live ? '<path class="happy" d="M7.4 17.6q2.2-3 4.4 0M16.2 17.6q2.2-3 4.4 0"/>' : ''}
+    </svg>`;
+
   function initCursor() {
     if (!fine || reduce || !hasGsap) return;
     const host = $('#cursor');
-    const N = 10;
-    const head = document.createElement('i');
-    head.className = 'head';
-    const trail = Array.from({ length: N }, (_, i) => {
+    const N = 6;
+    const make = (cls, live) => {
       const el = document.createElement('i');
-      el.style.opacity = String(.5 * (1 - i / N));
-      el.style.scale = String(1 - (i / N) * .55);
+      el.className = 'bot ' + cls;
+      el.innerHTML = BOT_SVG(live);
       host.appendChild(el);
+      return el;
+    };
+    // trail first so the live bot paints on top
+    const trail = Array.from({ length: N }, (_, i) => {
+      const el = make('ghost', false);
+      el.style.opacity = String(.45 * (1 - i / N));
+      el.style.scale = String(.85 - (i / N) * .4);
       return { el, x: -100, y: -100 };
     });
-    host.appendChild(head);
+    const head = make('head', true);
+    const pupils = $$('.pupil', head);
     root.classList.add('has-cursor');
     G.set(host, { opacity: 0 });
 
-    const p = { x: -100, y: -100 };
-    let shown = false, hovering = false, pressed = false;
+    const p = { x: -100, y: -100 }, last = { x: -100, y: -100 }, look = { x: 0, y: 0 };
+    let shown = false, hovering = false, pressed = false, tilt = 0;
     const sel = 'a, button, [role="switch"], [data-cursor=hover]';
-    // scale via the CSS `scale` property only; tweening `transform` would bake the position in and offset the square
-    const setScale = () => { head.style.scale = String((hovering ? 1.8 : 1) * (pressed ? .7 : 1)); };
+    // scale/rotate via individual CSS properties only; tweening `transform` would bake the position in
+    const setScale = () => { head.style.scale = String((hovering ? 1.35 : 1) * (pressed ? .8 : 1)); };
+
+    const blink = () => {
+      head.classList.add('blink');
+      setTimeout(() => head.classList.remove('blink'), 130);
+    };
+    const blinkLoop = () => {
+      setTimeout(() => {
+        if (!hovering) { blink(); if (Math.random() < .25) setTimeout(blink, 260); }
+        blinkLoop();
+      }, 2500 + Math.random() * 3000);
+    };
+    blinkLoop();
 
     window.addEventListener('pointermove', (e) => {
       p.x = e.clientX; p.y = e.clientY;
       if (!shown) {
         shown = true;
+        last.x = p.x; last.y = p.y;
         trail.forEach((s) => { s.x = p.x; s.y = p.y; });
         G.to(host, { opacity: 1, duration: .3 });
       }
-      // hover is read from the element under the pointer on every move, so it can never get stuck
       const over = !!(e.target.closest && e.target.closest(sel));
-      if (over !== hovering) { hovering = over; setScale(); }
+      if (over !== hovering) { hovering = over; head.classList.toggle('is-happy', over); setScale(); }
     }, { passive: true });
     document.addEventListener('pointerleave', () => { shown = false; G.to(host, { opacity: 0, duration: .3 }); });
     window.addEventListener('blur', () => { shown = false; G.to(host, { opacity: 0, duration: .3 }); });
-    window.addEventListener('pointerdown', () => { pressed = true; setScale(); });
+    window.addEventListener('pointerdown', () => { pressed = true; setScale(); blink(); });
     window.addEventListener('pointerup', () => { pressed = false; setScale(); });
 
     G.ticker.add((t, dt) => {
-      // the head sits exactly on the pointer; only the trail eases behind it
+      const f = dt / 16.67;
+      // velocity drives where the eyes look and how far the head leans
+      const vx = (p.x - last.x) / Math.max(f, .001), vy = (p.y - last.y) / Math.max(f, .001);
+      last.x = p.x; last.y = p.y;
+      const ease = 1 - Math.pow(.82, f);
+      look.x += (clamp(vx / 6, -2, 2) - look.x) * ease;
+      look.y += (clamp(vy / 6, -1.5, 1.5) - look.y) * ease;
+      tilt += (clamp(vx * .9, -12, 12) - tilt) * ease;
+      pupils.forEach((pu) => pu.setAttribute('transform', `translate(${look.x.toFixed(2)} ${look.y.toFixed(2)})`));
       head.style.translate = `${p.x}px ${p.y}px`;
-      const k = 1 - Math.pow(.6, dt / 16.67);
+      head.style.rotate = `${tilt.toFixed(2)}deg`;
+      const k = 1 - Math.pow(.6, f);
       let px = p.x, py = p.y;
       trail.forEach((s) => {
         s.x += (px - s.x) * k; s.y += (py - s.y) * k;
@@ -324,7 +390,7 @@
       }));
       const heroH = $('#hero').clientHeight;
       // like the reference: the name spans ~62% on desktop so the roles and lede sit beside it
-      const size = Math.floor(Math.min((avail / widest) * 100 * (wide ? .62 : .98), wide ? heroH * .26 : 400, 300));
+      const size = Math.floor(Math.min((avail / widest) * 100 * (wide ? .62 : .94), wide ? heroH * .26 : 400, 300));
       name.style.fontSize = size + 'px';
     };
     fit();
@@ -351,12 +417,14 @@
     G.set('#hero-bg', { opacity: 0 });
 
     heroIntro = G.timeline({ paused: true, defaults: { ease: 'power3.out' } })
-      .to('#hero-bg', { opacity: 1, duration: 1.8, ease: 'power2.out' }, 0)
-      .to('.hero__status', { y: 0, opacity: 1, duration: .7 }, .1)
-      .to(chars, { yPercent: 0, opacity: 1, duration: .8, stagger: .035, ease: 'expo.out' }, .05)
-      .to('.hero__rule', { scaleX: 1, duration: 1.2, ease: 'expo.out' }, .6)
-      .to('#roles', { y: 0, opacity: 1, duration: .8 }, .9)
-      .to(['.hero__lede', '.hero__links', '.hero__ctas'], { y: 0, opacity: 1, duration: .8, stagger: .1 }, 1);
+      .to('#hero-bg', { opacity: 1, duration: 2, ease: 'power2.out' }, 0)
+      .to('.hero__status', { y: 0, opacity: 1, duration: .7 }, .15)
+      .to(chars, { yPercent: 0, duration: .9, stagger: .07 }, .3)
+      // the reference's neon flicker as each letter lands
+      .to(chars, { keyframes: { opacity: [1, .2, 1, .5, 1], easeEach: 'none' }, duration: .9, stagger: .07 }, .3)
+      .to('.hero__rule', { scaleX: 1, duration: 1.2, ease: 'expo.out' }, .9)
+      .to('#roles', { y: 0, opacity: 1, duration: .8 }, 1.1)
+      .to(['.hero__lede', '.hero__links', '.hero__ctas'], { y: 0, opacity: 1, duration: .8, stagger: .1 }, 1.05);
 
     // hero recedes while About rises over it (desktop sticky only)
     G.matchMedia().add('(min-width: 761px)', () => {
@@ -467,6 +535,16 @@ void main(){
   function initProximity() {
     $$('[data-proximity]').forEach((el) => {
       const chars = splitChars(el);
+      // keep the word inside the gutters on any phone width
+      const fitWord = () => {
+        el.style.fontSize = '';
+        const avail = el.parentElement.clientWidth * .98;
+        const w = el.scrollWidth;
+        if (w > avail) el.style.fontSize = `${Math.floor(parseFloat(getComputedStyle(el).fontSize) * avail / w)}px`;
+      };
+      fitWord();
+      if (document.fonts) document.fonts.ready.then(fitWord);
+      window.addEventListener('resize', fitWord);
       if (!fine || reduce || !hasGsap) return;
       let active = false;
       const onMove = (e) => {
@@ -558,6 +636,20 @@ void main(){
         .fromTo('#projects-dim', { opacity: .25 }, { opacity: .8 }, 0);
     }
 
+    // phones: a swipe hint with two dots that follow the scroll position
+    $$('.proj__media--pair').forEach((pair) => {
+      const hint = document.createElement('div');
+      hint.className = 'swipe-hint';
+      hint.innerHTML = '<span>Swipe to see the second screen →</span><i class="is-on"></i><i></i>';
+      pair.after(hint);
+      const dots = $$('i', hint);
+      pair.addEventListener('scroll', () => {
+        const second = pair.scrollLeft > (pair.scrollWidth - pair.clientWidth) / 2;
+        dots[0].classList.toggle('is-on', !second);
+        dots[1].classList.toggle('is-on', second);
+      }, { passive: true });
+    });
+
     // Neer: the live phone
     const GOAL = 3000;
     let ml = 1250;
@@ -619,7 +711,7 @@ void main(){
 
     const layout = () => {
       const avail = orbit.parentElement.clientWidth;
-      const size = clamp(Math.min(540, avail - 8, innerHeight - 160), 300, 540);
+      const size = clamp(Math.min(540, avail - 8, innerHeight - 160), Math.min(280, avail - 8), 540);
       orbit.style.setProperty('--size', size + 'px');
       const r = size * .41;
       const ns = Math.max(56, Math.round(76 * size / 540));

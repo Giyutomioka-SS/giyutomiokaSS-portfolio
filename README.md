@@ -46,3 +46,5 @@ DESIGN.md    design system notes
 ## License
 
 See [LICENSE](LICENSE).
+
+The cursor's bot is modified from the Android robot, created and shared by Google and used under the [Creative Commons 3.0 Attribution License](https://creativecommons.org/licenses/by/3.0/).

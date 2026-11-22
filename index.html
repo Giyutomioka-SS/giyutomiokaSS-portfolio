@@ -61,17 +61,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;700;800&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" /> <!-- taste-skill-ignore: mono only for the reference-style contact details -->
 
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=13" />
   <script>
-    // Before first paint: theme (saved choice, else system) and whether the loader runs.
+    // Before first paint: theme (saved choice, else system); lock scroll while the loader runs (every load, like the reference).
     (function () {
       var d = document.documentElement, t = null;
       d.classList.add('js');
       try { t = localStorage.getItem('theme'); } catch (e) {}
       if (t !== 'light' && t !== 'dark') t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       d.setAttribute('data-theme', t);
-      try { if (sessionStorage.getItem('seen')) d.classList.add('no-loader'); } catch (e) {}
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('no-loader');
+      d.classList.add('is-loading');
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     })();
   </script>
 </head>
@@ -81,7 +81,10 @@
 
   <!-- Loader -->
   <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader__box">
+    <div class="loader__grid"></div>
+    <div class="loader__box" id="loader-box">
+      <span class="loader__glow" id="loader-glow"></span>
+      <span class="loader__orbit" id="loader-orbit"></span>
       <svg class="loader__ring" viewBox="0 0 120 120">
         <circle class="loader__track" cx="60" cy="60" r="54" />
         <circle class="loader__bar" id="loader-bar" cx="60" cy="60" r="54" />
@@ -684,7 +687,7 @@
             <i class="row__line" aria-hidden="true"></i>
             <a href="mailto:sumitsinghkoranga7@gmail.com?subject=Hello%20Sumit" data-email>
               <span class="row__label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>Email</span>
-              <span class="row__swap"><span>sumitsinghkoranga7@gmail.com</span><span>Write me an email</span></span>
+              <span class="row__swap"><span>sumitsinghkoranga7<wbr>@gmail.com</span><span>Write me an email</span></span>
               
             </a>
             <button class="row__copy" type="button" data-copy="sumitsinghkoranga7@gmail.com" aria-label="Copy email"><svg class="i-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="i-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button>
@@ -750,6 +753,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
-  <script src="app.js?v=11" defer></script>
+  <script src="app.js?v=13" defer></script>
 </body>
 </html>
