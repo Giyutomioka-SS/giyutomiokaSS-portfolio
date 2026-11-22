@@ -55,13 +55,13 @@
   </script>
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
-  <link rel="preload" as="image" href="assets/me.jpg" />
+  <link rel="preload" as="image" href="assets/avatar.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;700;800&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;700;800&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" /> <!-- taste-skill-ignore: mono only for the reference-style contact details -->
 
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=10" />
   <script>
     // Before first paint: theme (saved choice, else system) and whether the loader runs.
     (function () {
@@ -95,11 +95,12 @@
 
   <!-- Navigation -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__mark" data-scroll aria-label="Sumit Singh, back to top">giyutomiokaSS</a>
+    <a href="#top" class="nav__mark" data-scroll aria-label="Sumit Singh, back to top"><img class="nav__avatar" src="assets/avatar.jpg" width="36" height="36" alt="" /><span>giyutomiokaSS</span></a>
     <nav aria-label="Main">
       <ul class="nav__links">
         <li><a href="#about" data-scroll>About</a></li>
         <li><a href="#experience" data-scroll>Experience</a></li>
+        <li><a href="#projects" data-scroll>Projects</a></li>
         <li><a href="#skills" data-scroll>Skills</a></li>
         <li><a href="#contact" data-scroll>Contact</a></li>
       </ul>
@@ -117,7 +118,7 @@
         </svg>
       </span>
     </button>
-    <a class="btn btn--accent btn--sm nav__cta" href="#projects" data-scroll>Projects</a>
+    <a class="btn btn--accent btn--sm nav__cta" href="https://drive.google.com/file/d/1zP22Ajhfvt6k3s6LU6d-AkwwSe0VA7wz/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
     <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
       <span></span><span></span>
     </button>
@@ -145,34 +146,31 @@
       </div>
 
       <div class="hero__inner wrap">
-        <div class="hero__status" data-hero-fade>
-          <span class="dot" aria-hidden="true"></span> Open to software engineer roles &amp; freelance
-        </div>
-
         <div class="hero__stage">
-          <h1 class="hero__name" id="hero-name" aria-label="Sumit Singh">
-            <span class="hero__line hero__line--1" aria-hidden="true">Sumit</span>
-            <span class="hero__line hero__line--2" aria-hidden="true">Singh</span>
-          </h1>
-
-          <figure class="hero__photo" data-hero-photo>
-            <img src="assets/me.jpg" width="880" height="1100" alt="Sumit Singh smiling at a café table, headphones round his neck" fetchpriority="high" />
-          </figure>
-
-          <ul class="hero__roles" id="roles" aria-label="What I do">
-            <li class="is-active"><span class="bar" aria-hidden="true"></span>Software engineer</li>
-            <li><span class="bar" aria-hidden="true"></span>Android &amp; Kotlin</li>
-            <li><span class="bar" aria-hidden="true"></span>GenAI agents &amp; MCP</li>
-            <li><span class="bar" aria-hidden="true"></span>Freelance projects</li>
-          </ul>
+          <div class="hero__status" data-hero-fade>
+            <span class="dot" aria-hidden="true"></span> Open to software engineer roles &amp; freelance
+          </div>
+          <div class="hero__block">
+            <h1 class="hero__name" id="hero-name" aria-label="Sumit Singh">
+              <span class="hero__line hero__line--1" aria-hidden="true">Sumit</span>
+              <span class="hero__line hero__line--2" aria-hidden="true">Singh</span>
+            </h1>
+            <ul class="hero__roles" id="roles" aria-label="What I do">
+              <li class="is-active"><span class="bar" aria-hidden="true"></span>Software engineer</li>
+              <li><span class="bar" aria-hidden="true"></span>Android &amp; Kotlin</li>
+              <li><span class="bar" aria-hidden="true"></span>GenAI agents &amp; MCP</li>
+              <li><span class="bar" aria-hidden="true"></span>Freelance projects</li>
+            </ul>
+            <p class="hero__lede" data-hero-fade>Software engineer at Tata 1MG. I build Android apps that thousands of field workers rely on every day.</p>
+          </div>
         </div>
 
         <div class="hero__foot">
-          <p class="hero__lede" data-hero-fade>Software engineer at Tata 1MG. I build Android apps that thousands of field workers rely on every day.</p>
+          <i class="hero__rule" aria-hidden="true"></i>
           <div class="hero__links" data-hero-fade>
-            <a href="https://github.com/giyutomioka-SS" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://drive.google.com/file/d/1zP22Ajhfvt6k3s6LU6d-AkwwSe0VA7wz/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+            <a href="https://github.com/giyutomioka-SS" target="_blank" rel="noopener">GitHub <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener">LinkedIn <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            <a href="#projects" data-scroll>Projects <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
           </div>
           <div class="hero__ctas" data-hero-fade>
             <a href="#experience" class="btn btn--accent" data-scroll>See my work</a>
@@ -193,10 +191,6 @@
             <p data-words>I'm a software engineer at Tata 1MG, building clean, fast mobile experiences in Kotlin. The apps I ship run field operations for thousands of people every day, so they have to work offline, sync when the signal returns and never crash.</p>
             <p data-words>I contribute to open source, most of all AnkiDroid, and I keep exploring new libraries, GenAI agents and MCP servers through side projects.</p>
             <p data-words>Away from the keyboard I'm usually running or trekking in the mountains, looking for quiet and pushing my limits.</p>
-            <figure class="band" data-rise>
-              <img src="assets/har-ki-doon.jpg" width="1400" height="1050" loading="lazy" decoding="async" alt="Pine forest falling into the Har ki Doon valley, with snow on the Sankari range behind" />
-              <figcaption>Har ki Doon valley, Uttarakhand. Photo: Ash1091patil, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/w/index.php?curid=82414305" target="_blank" rel="noopener">Wikimedia Commons</a>.</figcaption>
-            </figure>
           </div>
         </div>
 
@@ -584,8 +578,9 @@
 
     <!-- ============ CONTACT ============ -->
     <section class="contact" id="contact">
-      <div class="wrap">
-        <p class="contact__clock" data-top>Local time in India <time id="clock">--:--:--</time> IST</p>
+      <div class="contact__glow" id="contact-glow" aria-hidden="true"></div>
+      <div class="contact__inner">
+        <p class="contact__clock" data-top>Local time <time id="clock">--:--:--</time> IST</p>
 
         <h2 class="contact__title" id="talk">
           <span class="contact__title-text">Let's talk</span>
@@ -594,37 +589,35 @@
 
         <div class="contact__row">
           <div class="contact__blurb" data-blurb>
-            <p>I'm open to software engineer roles and freelance work, and always up for a good tech conversation.</p>
-            <p class="muted">Based in India, working remote.</p>
+            <p>Need an Android app built, or a software engineer on your team?</p>
+            <p class="muted">I'm open to software engineer roles and freelance work. I build Android apps with Kotlin and Jetpack Compose, and AI tools with agents and MCP. Tell me what you're making.</p>
           </div>
           <a class="cta-round" id="cta-round" href="mailto:sumitsinghkoranga7@gmail.com?subject=Hello%20Sumit" data-email data-magnet="0.35" aria-label="Email Sumit: start a conversation">
             <svg class="cta-round__ring" viewBox="0 0 200 200" aria-hidden="true">
               <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
-              <text><textPath href="#circ" textLength="485">Start a conversation • Start a conversation •</textPath></text>
+              <text><textPath href="#circ" textLength="485">START A CONVERSATION • START A CONVERSATION •</textPath></text>
             </svg>
             <svg class="cta-round__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
           </a>
         </div>
-      </div>
 
-      <div class="marquee" id="marquee" aria-hidden="true">
-        <div class="marquee__track" id="marquee-track">
-          <div class="marquee__group">
+        <div class="marquee" id="marquee" aria-hidden="true">
+          <div class="marquee__track" id="marquee-track">
+            <div class="marquee__group">
             <span>Open to software engineer roles</span><i></i>
             <span class="o">Available for freelance</span><i></i>
             <span>Android &amp; Kotlin</span><i></i>
             <span class="o">Open source at AnkiDroid</span><i></i>
-          </div>
-          <div class="marquee__group">
+            </div>
+            <div class="marquee__group">
             <span>Open to software engineer roles</span><i></i>
             <span class="o">Available for freelance</span><i></i>
             <span>Android &amp; Kotlin</span><i></i>
             <span class="o">Open source at AnkiDroid</span><i></i>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="wrap">
         <ul class="rows">
           <li class="row">
             <i class="row__line" aria-hidden="true"></i>
@@ -646,9 +639,10 @@
           </li>
           <li class="row">
             <i class="row__line" aria-hidden="true"></i>
+            <i class="row__line row__line--bottom" aria-hidden="true"></i>
             <a href="https://wa.me/919990487099?text=Hi%20Sumit%2C" target="_blank" rel="noopener">
               <span class="row__label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</span>
-              <span class="row__swap"><span>+91 99904 87099</span><span>Say hi on WhatsApp</span></span>
+              <span class="row__swap"><span>Quick chat</span><span>Say hi on WhatsApp</span></span>
               <svg class="row__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
             </a>
             
@@ -666,34 +660,35 @@
             <i class="row__line" aria-hidden="true"></i>
             <a href="https://linkedin.com/in/sumit-singh07" target="_blank" rel="noopener">
               <span class="row__label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><path d="M2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</span>
-              <span class="row__swap"><span>sumit-singh07</span><span>Connect on LinkedIn</span></span>
+              <span class="row__swap"><span>Sumit Singh</span><span>Connect on LinkedIn</span></span>
               <svg class="row__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
             </a>
             
           </li>
           <li class="row">
             <i class="row__line" aria-hidden="true"></i>
+            <i class="row__line row__line--bottom" aria-hidden="true"></i>
             <a href="https://x.com/sumit_singhhh" target="_blank" rel="noopener">
               <span class="row__label"><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg>X</span>
-              <span class="row__swap"><span>@sumit_singhhh</span><span>Follow on X</span></span>
+              <span class="row__swap"><span>Send a message</span><span>Message me on X</span></span>
               <svg class="row__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
             </a>
             
           </li>
         </ul>
+
+        <footer class="contact__foot">
+          <p class="foot__name"><span class="dot dot--glow" aria-hidden="true"></span><b>Sumit Singh</b><span class="foot__year">© <span id="year">2026</span></span></p>
+          <button class="foot__top" type="button" id="to-top" data-magnet="0.3">Back to top <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+        </footer>
       </div>
     </section>
   </main>
-
-  <footer class="foot wrap">
-    <p class="foot__name"><span class="dot" aria-hidden="true"></span><b>Sumit Singh</b><span class="foot__year">© <span id="year">2026</span></span></p>
-    <button class="foot__top" type="button" id="to-top" data-magnet="0.3">Back to top <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
-  <script src="app.js?v=7" defer></script>
+  <script src="app.js?v=10" defer></script>
 </body>
 </html>

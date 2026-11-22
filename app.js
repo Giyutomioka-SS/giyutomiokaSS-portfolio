@@ -298,14 +298,11 @@
     const name = $('#hero-name');
     const lines = $$('.hero__line', name);
     const chars = lines.flatMap(splitChars);
-    const stage = $('.hero__stage');
-    const photo = $('.hero__photo');
+    const block = $('.hero__block');
 
     const fit = () => {
-      const mobile = innerWidth <= 760;
-      const photoW = mobile ? 0 : photo.getBoundingClientRect().width;
-      const gap = mobile ? 0 : parseFloat(getComputedStyle(stage).columnGap) || 0;
-      const avail = stage.clientWidth - photoW - gap;
+      const wide = innerWidth > 1023;
+      const avail = block.clientWidth;
       name.style.fontSize = '100px';
       const widest = Math.max(...lines.map((l) => {
         l.style.display = 'inline-block';
@@ -314,7 +311,8 @@
         return w;
       }));
       const heroH = $('#hero').clientHeight;
-      const size = Math.floor(Math.min((avail / widest) * 100 * .98, mobile ? 400 : heroH * .27, 280));
+      // like the reference: the name spans ~62% on desktop so the roles and lede sit beside it
+      const size = Math.floor(Math.min((avail / widest) * 100 * (wide ? .62 : .98), wide ? heroH * .26 : 400, 300));
       name.style.fontSize = size + 'px';
     };
     fit();
@@ -336,7 +334,7 @@
 
     G.set(chars, { yPercent: 110, opacity: 0 });
     G.set('[data-hero-fade]', { y: 20, opacity: 0 });
-    G.set(photo, { clipPath: 'inset(100% 0% 0% 0%)' });
+    G.set('.hero__rule', { scaleX: 0 });
     G.set('#roles', { opacity: 0, y: 16 });
     G.set('#hero-bg', { opacity: 0 });
 
@@ -344,8 +342,7 @@
       .to('#hero-bg', { opacity: 1, duration: 1.8, ease: 'power2.out' }, 0)
       .to('.hero__status', { y: 0, opacity: 1, duration: .7 }, .1)
       .to(chars, { yPercent: 0, opacity: 1, duration: .8, stagger: .035, ease: 'expo.out' }, .05)
-      .to(photo, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut' }, .35)
-      .fromTo($('img', photo), { scale: 1.25 }, { scale: 1, duration: 1.6, ease: 'expo.out' }, .35)
+      .to('.hero__rule', { scaleX: 1, duration: 1.2, ease: 'expo.out' }, .6)
       .to('#roles', { y: 0, opacity: 1, duration: .8 }, .9)
       .to(['.hero__lede', '.hero__links', '.hero__ctas'], { y: 0, opacity: 1, duration: .8, stagger: .1 }, 1);
 
@@ -737,7 +734,7 @@ void main(){
   function initClock() {
     const el = $('#clock');
     if (!el) return;
-    const f = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
+    const f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     const tick = () => { el.textContent = f.format(new Date()); };
     tick();
     setInterval(tick, 1000);
@@ -766,7 +763,7 @@ void main(){
       const m = document.createElement('canvas').getContext('2d');
       m.font = font(100);
       const widest = Math.max(...lines.map((l) => m.measureText(l).width));
-      const size = Math.min((w * .98 / widest) * 100, two ? 150 : 210);
+      const size = Math.min((w * (two ? .98 : .8) / widest) * 100, two ? 150 : 190);
       const lh = size * .92;
       const textH = lh * lines.length;
       wrap.style.height = `${Math.ceil(textH)}px`;
@@ -778,7 +775,7 @@ void main(){
       off.width = W; off.height = H;
       const o = off.getContext('2d');
       o.fillStyle = '#fff'; o.font = font(size); o.textBaseline = 'top';
-      lines.forEach((l, i) => o.fillText(l, PAD, PAD + i * lh + size * .04));
+      lines.forEach((l, i) => o.fillText(l, PAD + (w - o.measureText(l).width) / 2, PAD + i * lh + size * .04));
       const data = o.getImageData(0, 0, W, H).data;
       const gap = w < 700 ? 4 : 5;
       parts = [];
@@ -866,14 +863,31 @@ void main(){
   }
 
   function initContactMotion() {
+    const section = $('#contact');
+    const glow = $('#contact-glow');
+    if (fine && hasGsap && !reduce && glow) {
+      const qx = G.quickTo(glow, 'x', { duration: .8, ease: 'power3' });
+      const qy = G.quickTo(glow, 'y', { duration: .8, ease: 'power3' });
+      section.addEventListener('pointermove', (e) => {
+        const r = section.getBoundingClientRect();
+        qx(e.clientX - r.left); qy(e.clientY - r.top);
+        G.to(glow, { opacity: 1, duration: .4, overwrite: 'auto' });
+      });
+      section.addEventListener('pointerleave', () => G.to(glow, { opacity: 0, duration: .6 }));
+    }
     if (!hasGsap || reduce) return;
 
-    G.from('[data-blurb] > *', { y: 24, duration: .8, stagger: .12, ease: 'power3.out', scrollTrigger: { trigger: '[data-blurb]', start: 'top 88%', once: true } });
-    G.from('#cta-round', { scale: 0, rotation: -40, duration: 1.3, ease: 'elastic.out(1, 0.55)', scrollTrigger: { trigger: '#cta-round', start: 'top 92%', once: true } });
-    G.timeline({ scrollTrigger: { trigger: '.rows', start: 'top 92%', once: true } })
+    // the reference's entrance: clock, words, button, marquee, then the rows
+    G.timeline({ scrollTrigger: { trigger: section, start: 'top 65%', once: true }, defaults: { ease: 'power3.out' } })
+      .from('[data-top]', { opacity: 0, y: -12, duration: .7 })
+      .from('[data-blurb] > *', { y: 24, opacity: 0, duration: .8, stagger: .12 }, .9)
+      .from('#cta-round', { scale: 0, rotation: -40, duration: 1.3, ease: 'elastic.out(1, 0.55)' }, 1.1)
+      .from('#marquee', { opacity: 0, duration: 1 }, 1.2);
+    G.timeline({ scrollTrigger: { trigger: '.rows', start: 'top 88%', once: true } })
       .from('.row__line', { scaleX: 0, duration: 1.1, stagger: .07, ease: 'expo.out' }, 0)
-      .from('.row > a', { y: 18, duration: .7, stagger: .07, ease: 'power3.out' }, .15);
-    G.from('[data-top]', { y: -12, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '[data-top]', start: 'top 92%', once: true } });
+      .from('.row > a', { y: 20, opacity: 0, duration: .7, stagger: .07, ease: 'power3.out' }, .15)
+      .from('.row__copy', { opacity: 0, scale: .6, duration: .6, stagger: .07, ease: 'back.out(2)' }, .5);
+    G.from('.contact__foot', { opacity: 0, y: 20, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.contact__foot', start: 'top 98%', once: true } });
 
     // circular text spins faster with scroll velocity
     const ring = G.to('.cta-round__ring', { rotation: 360, duration: 16, repeat: -1, ease: 'none', transformOrigin: '50% 50%' });
