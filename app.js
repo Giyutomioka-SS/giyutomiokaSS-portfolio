@@ -192,9 +192,9 @@
         <rect class="shell" x="3" y="3" width="26" height="22" rx="11"/>
         <rect class="visor" x="7" y="8" width="18" height="12" rx="6"/>
         <g class="eyes"><g class="glance">
-          <g class="eye eye-open"><rect x="10.4" y="10.6" width="4.4" height="6.6" rx="2.2"/>${live ? '<circle class="glint" cx="13.5" cy="12.1" r=".9"/>' : ''}</g>
-          <g class="eye eye-open"><rect x="17.2" y="10.6" width="4.4" height="6.6" rx="2.2"/>${live ? '<circle class="glint" cx="20.3" cy="12.1" r=".9"/>' : ''}</g>
-          ${live ? '<path class="happy" d="M10.2 15.4q2.4-3.2 4.8 0M17 15.4q2.4-3.2 4.8 0"/>' : ''}
+          <g class="eye eye-open"><rect x="11.4" y="11.6" width="3.2" height="4.8" rx="1.6"/>${live ? '<circle class="glint" cx="13.7" cy="12.6" r=".6"/>' : ''}</g>
+          <g class="eye eye-open"><rect x="17.4" y="11.6" width="3.2" height="4.8" rx="1.6"/>${live ? '<circle class="glint" cx="19.7" cy="12.6" r=".6"/>' : ''}</g>
+          ${live ? '<path class="happy" d="M11.1 15.2q1.9-2.6 3.8 0M17.1 15.2q1.9-2.6 3.8 0"/>' : ''}
         </g></g>
       </g>
     </svg>`;
@@ -222,7 +222,8 @@
     root.classList.add('has-cursor');
     G.set(host, { opacity: 0 });
 
-    const p = { x: -100, y: -100 }, last = { x: -100, y: -100 }, look = { x: 0, y: 0 };
+    const p = { x: -100, y: -100 }, last = { x: -100, y: -100 }, look = { x: 0, y: 0 }, gaze = { x: 0, y: 0 }, sv = { x: 0, y: 0 };
+    let holdUntil = 0;
     let shown = false, hovering = false, pressed = false, tilt = 0, still = 0;
     const sel = 'a, button, [role="switch"], [data-cursor=hover]';
     // scale/rotate via individual CSS properties only; tweening `transform` would bake the position in
@@ -262,13 +263,24 @@
       const vx = (p.x - last.x) / Math.max(f, .001), vy = (p.y - last.y) / Math.max(f, .001);
       last.x = p.x; last.y = p.y;
       const ease = 1 - Math.pow(.82, f);
-      look.x += (clamp(vx / 6, -2, 2) - look.x) * ease;
-      look.y += (clamp(vy / 6, -1.5, 1.5) - look.y) * ease;
       tilt += (clamp(vx * .9, -12, 12) - tilt) * ease;
+      // the eyes look where the cursor is heading: direction, not speed, so even slow moves read
+      const se = 1 - Math.pow(.75, f);
+      sv.x += (vx - sv.x) * se; sv.y += (vy - sv.y) * se;
+      const speed = Math.hypot(sv.x, sv.y);
+      if (speed > .4) {
+        gaze.x = (sv.x / speed) * 2.6; gaze.y = (sv.y / speed) * 2;
+        holdUntil = t * 1000 + 700; // keep looking that way for a moment after stopping
+      } else if (t * 1000 > holdUntil) {
+        gaze.x = 0; gaze.y = 0;
+      }
+      const ge = 1 - Math.pow(hovering ? .5 : (speed > .4 ? .7 : .88), f);
+      look.x += ((hovering ? 0 : gaze.x) - look.x) * ge;
+      look.y += ((hovering ? 0 : gaze.y) - look.y) * ge;
       eyes.setAttribute('transform', `translate(${look.x.toFixed(2)} ${look.y.toFixed(2)})`);
-      // calm idle: after a moment without movement the bot bobs and glances around
-      still = Math.abs(vx) + Math.abs(vy) > .3 ? 0 : still + dt;
-      head.classList.toggle('is-idle', still > 1200 && !hovering);
+      // calm idle: after a moment without movement (and once the eyes are back) the bot bobs and glances around
+      still = speed > .3 ? 0 : still + dt;
+      head.classList.toggle('is-idle', still > 1200 && !hovering && Math.hypot(look.x, look.y) < .3);
       head.style.translate = `${p.x}px ${p.y}px`;
       head.style.rotate = `${tilt.toFixed(2)}deg`;
       const k = 1 - Math.pow(.62, f);

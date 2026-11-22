@@ -1,48 +1,56 @@
 # Sumit Singh · Portfolio
 
-Personal portfolio of **Sumit Singh (giyutomiokaSS)**, software engineer at Tata 1MG building Android apps with Kotlin and Jetpack Compose.
+Software engineer at **Tata 1MG**, building Android apps with Kotlin and Jetpack Compose. Open to software engineer roles and freelance work.
 
-**Live:** [hiisumit.com](https://hiisumit.com)
+**[hiisumit.com](https://hiisumit.com)**
 
 ![Portfolio preview](assets/og-image.png)
 
-## What's inside
+## Highlights
 
-- **Hero:** WebGL silk background, a big name intro and rotating roles
+- **Loader:** a progress ring with a counter, then the page slides up into the hero
+- **Hero:** WebGL silk background and a flickering name intro
+- **Bot cursor:** its eyes follow where you move, and a trail of ten bots follows behind (desktop only)
+- **Themes:** dark and light, with an animated switch. Dark by default; your choice is remembered.
 - **Experience:** Tata 1MG, AnkiDroid, OTPLESS, VITTO and MOLOG, each with its headline result
-- **Projects:** ResQSync, Neer and NewsHub, each shown as two app screens built in HTML/CSS. The Neer screen is interactive.
-- **Skills:** an orbit of tools plus skill trees with animated pulses
-- **Contact:** particle "Let's talk", a scrolling marquee and copy-to-clipboard links
-- **Light and dark themes:** an animated switch that remembers your choice
+- **Projects:** two screens per app, built in HTML/CSS
+  - ResQSync: family map + SOS screen
+  - Neer: live water tracker (tap to log) + reminder
+  - NewsHub: news feed + read-aloud reader
+- **Skills:** an orbit of tools plus skill trees with travelling pulses
+- **Contact:** particle "Let's talk", velocity marquee and copy-to-clipboard links
+- **Phone-friendly:** works from 320px wide
 
 ## Tech
 
-Plain HTML, CSS and JavaScript, with no build step.
-
-- [GSAP](https://gsap.com/) with ScrollTrigger and SplitText
-- [Lenis](https://lenis.darkroom.engineering/) for smooth scrolling
-- Fonts: Unbounded, Space Grotesk and JetBrains Mono (Google Fonts)
-- Hosted on GitHub Pages with a custom domain (`CNAME`)
+- Plain HTML, CSS and JavaScript, with no build step
+- [GSAP](https://gsap.com/) (ScrollTrigger, SplitText) and [Lenis](https://lenis.darkroom.engineering/) smooth scrolling
+- Fonts: Unbounded, Space Grotesk and JetBrains Mono
+- Hosted on GitHub Pages
 
 ## Run locally
 
 ```bash
 git clone https://github.com/Giyutomioka-SS/giyutomiokaSS-portfolio.git
 cd giyutomiokaSS-portfolio
-python3 -m http.server 8080
-# open http://localhost:8080
+python3 -m http.server 8080   # open http://localhost:8080
 ```
 
 ## Structure
 
 ```
-index.html   page markup and SEO meta
-style.css    design tokens and styles (both themes)
-app.js       animations and interactions
-assets/      photo, avatar, app icons, skill icons, social preview
+index.html   markup, SEO and social meta
+style.css    design tokens and styles for both themes
+app.js       loader, cursor, animations and interactions
+assets/      photo, avatar, app and skill icons, social preview
 DESIGN.md    design system notes
+CNAME        custom domain (hiisumit.com)
 ```
+
+## Deploy
+
+Push to `main` and GitHub Pages publishes it to [hiisumit.com](https://hiisumit.com). When you change `style.css` or `app.js`, bump the `?v=` number on both links in `index.html` so browsers fetch the new files.
 
 ## License
 
-See [LICENSE](LICENSE).
+[Apache 2.0](LICENSE)
