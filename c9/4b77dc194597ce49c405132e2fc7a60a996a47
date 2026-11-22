@@ -1,0 +1,27 @@
+index.html
+  82b2143f92132a9d 64,756
+README.md
+  82b2143f92132a9d 3,5,9,11-14,16-22,26-29,36,42-45,47,50-53,56
+app.js
+  82b2143f92132a9d 195-197,225-226,267-279,281-283
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "c94b77dc194597ce49c405132e2fc7a60a996a47",
+  "prompts": {
+    "82b2143f92132a9d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d5d1dde8-b4d0-4a41-927d-2fe786806aa7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Sumit Singh",
+      "messages": [],
+      "total_additions": 52,
+      "total_deletions": 32,
+      "accepted_lines": 161,
+      "overriden_lines": 18
+    }
+  }
+}
