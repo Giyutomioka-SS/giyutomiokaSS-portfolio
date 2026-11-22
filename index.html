@@ -61,7 +61,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;700;800&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" /> <!-- taste-skill-ignore: mono only for the reference-style contact details -->
 
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=11" />
   <script>
     // Before first paint: theme (saved choice, else system) and whether the loader runs.
     (function () {
@@ -95,7 +95,16 @@
 
   <!-- Navigation -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__mark" data-scroll aria-label="Sumit Singh, back to top"><img class="nav__avatar" src="assets/avatar.jpg" width="36" height="36" alt="" /><span>giyutomiokaSS</span></a>
+    <div class="nav__brand" id="brand">
+      <button class="nav__avatar-btn" id="avatar-btn" type="button" aria-label="Show Sumit's photo" aria-expanded="false" aria-controls="peek">
+        <img class="nav__avatar" src="assets/avatar.jpg" width="36" height="36" alt="" />
+      </button>
+      <a href="#top" class="nav__mark" data-scroll aria-label="giyutomiokaSS, back to top">giyutomiokaSS</a>
+      <figure class="nav__peek" id="peek">
+        <img src="assets/me.jpg" width="880" height="1100" alt="Sumit Singh smiling at a café table, headphones round his neck" loading="lazy" />
+        <figcaption><b>Sumit Singh</b><span>Software engineer at Tata 1MG</span></figcaption>
+      </figure>
+    </div>
     <nav aria-label="Main">
       <ul class="nav__links">
         <li><a href="#about" data-scroll>About</a></li>
@@ -338,8 +347,8 @@
         <article class="proj">
           <h3 class="proj__title"><span class="mask"><span data-mask>ResQSync</span></span></h3>
           <div class="proj__grid">
-            <a class="proj__media" href="https://github.com/ResQSync/ResQSyncAndroid" target="_blank" rel="noopener" data-follow aria-label="ResQSync on GitHub">
-              <div class="phone" data-ui>
+            <div class="proj__media proj__media--pair">
+              <div class="phone phone--main" data-ui>
                 <div class="phone__screen app app--rq">
                   <div class="rq__map" aria-hidden="true">
                     <svg viewBox="0 0 300 600" preserveAspectRatio="xMidYMid slice">
@@ -380,8 +389,27 @@
                   </div>
                 </div>
               </div>
-              <span class="pill-follow" aria-hidden="true">View on GitHub</span>
-            </a>
+
+              <div class="phone phone--side" data-ui aria-hidden="true">
+                <div class="phone__screen app app--rq sos">
+                  <div class="sb"><span>9:42</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
+                  <div class="sos__top"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><b>Emergency</b></div>
+                  <div class="sos__btn">
+                    <span class="sos__ring"></span><span class="sos__ring sos__ring--2"></span>
+                    <span class="sos__core"><b>SOS</b><small>Hold 3 s</small></span>
+                  </div>
+                  <p class="sos__hint">Hold the button to alert your circle with your live location</p>
+                  <p class="sos__label">Alert goes to</p>
+                  <div class="sos__chips">
+                    <span><i class="av av--a">M</i><i class="av av--b">P</i><i class="av av--c">A</i>Mom, Papa, Anu</span>
+                  </div>
+                  <div class="sos__row">
+                    <span><b>Share live location</b><small>Updates every 30 seconds</small></span>
+                    <span class="m3switch" aria-hidden="true"><i></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="proj__text" data-rise>
               <p>Keeps families connected through real-time location sharing. See where your people are, and know when they arrive somewhere safe.</p>
               <p class="tags">Kotlin · MVVM · Firebase · Google Maps API · Material Design</p>
@@ -395,7 +423,7 @@
           <h3 class="proj__title"><span class="mask"><span data-mask>Neer</span></span></h3>
           <div class="proj__grid">
             <div class="proj__media proj__media--pair">
-              <div class="phone phone--live" data-ui id="neer">
+              <div class="phone phone--main phone--live" data-ui id="neer">
                 <div class="phone__screen app app--neer">
                   <div class="sb"><span>2:14</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
                   <div class="neer__top">
@@ -463,8 +491,8 @@
         <article class="proj">
           <h3 class="proj__title"><span class="mask"><span data-mask>NewsHub</span></span></h3>
           <div class="proj__grid">
-            <a class="proj__media" href="https://github.com/Giyutomioka-SS/NewsHub" target="_blank" rel="noopener" data-follow aria-label="NewsHub on GitHub">
-              <div class="phone" data-ui>
+            <div class="proj__media proj__media--pair">
+              <div class="phone phone--main" data-ui>
                 <div class="phone__screen app app--nh">
                   <div class="sb"><span>8:02</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
                   <div class="nh__top">
@@ -507,8 +535,41 @@
                   </div>
                 </div>
               </div>
-              <span class="pill-follow" aria-hidden="true">View on GitHub</span>
-            </a>
+
+              <div class="phone phone--side" data-ui aria-hidden="true">
+                <div class="phone__screen app app--nh rd">
+                  <div class="sb"><span>8:06</span><span class="sb__icons"><i></i><i></i><i class="sb__bat"></i></span></div>
+                  <div class="rd__bar">
+                    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                    <span>The Hindu</span>
+                    <b>Aa</b>
+                  </div>
+                  <div class="rd__art">
+                    <svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice">
+                      <rect width="320" height="140" fill="#4F6F7F"/>
+                      <path d="M0 96 Q 70 78 140 92 T 320 88 V140 H0Z" fill="#2E5948"/>
+                      <path d="M0 118 Q 90 104 180 116 T 320 112 V140 H0Z" fill="#244839"/>
+                      <ellipse cx="120" cy="38" rx="56" ry="20" fill="#B9C9D2"/>
+                      <ellipse cx="184" cy="32" rx="46" ry="22" fill="#D2DEE4"/>
+                      <g stroke="#D2DEE4" stroke-width="2" stroke-linecap="round" opacity=".8"><path d="M110 64l-5 14M140 62l-5 14M170 64l-5 14M200 62l-5 14"/></g>
+                    </svg>
+                  </div>
+                  <p class="rd__h">Monsoon reaches Kerala two days early</p>
+                  <p class="rd__meta">Staff reporter · 4 min listen</p>
+                  <p class="rd__body"><span class="rd__s">The south-west monsoon set in over Kerala on Friday, two days ahead of its usual date.</span> <span class="rd__s">Heavy rain is expected along the coast through the weekend.</span> <span class="rd__s">Farmers welcomed the early start after a hot, dry May.</span></p>
+                  <div class="rd__player">
+                    <div class="rd__prog"><i></i></div>
+                    <div class="rd__ctrl">
+                      <span class="rd__speed">1.25×</span>
+                      <svg viewBox="0 0 24 24"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg>
+                      <span class="rd__pause"><i></i><i></i></span>
+                      <svg viewBox="0 0 24 24"><path d="M13 17l5-5-5-5M6 17l5-5-5-5"/></svg>
+                      <span class="rd__time">1:12</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="proj__text" data-rise>
               <p>Brings top stories from many sources into one clean feed, with a built-in read-aloud mode for visually impaired readers.</p>
               <p class="tags">Kotlin · Dagger Hilt · Retrofit · Text-to-speech</p>
@@ -689,6 +750,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
-  <script src="app.js?v=10" defer></script>
+  <script src="app.js?v=11" defer></script>
 </body>
 </html>

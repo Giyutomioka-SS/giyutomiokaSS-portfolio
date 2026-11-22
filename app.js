@@ -171,46 +171,40 @@
     host.appendChild(head);
     root.classList.add('has-cursor');
     G.set(host, { opacity: 0 });
-    let hovering = false;
 
-    const p = { x: innerWidth / 2, y: innerHeight / 2 };
-    const h = { x: p.x, y: p.y };
-    let shown = false;
+    const p = { x: -100, y: -100 };
+    let shown = false, hovering = false, pressed = false;
+    const sel = 'a, button, [role="switch"], [data-cursor=hover]';
+    // scale via the CSS `scale` property only; tweening `transform` would bake the position in and offset the square
+    const setScale = () => { head.style.scale = String((hovering ? 1.8 : 1) * (pressed ? .7 : 1)); };
+
     window.addEventListener('pointermove', (e) => {
       p.x = e.clientX; p.y = e.clientY;
-      if (!shown) { shown = true; G.to(host, { opacity: 1, duration: .3 }); }
+      if (!shown) {
+        shown = true;
+        trail.forEach((s) => { s.x = p.x; s.y = p.y; });
+        G.to(host, { opacity: 1, duration: .3 });
+      }
+      // hover is read from the element under the pointer on every move, so it can never get stuck
+      const over = !!(e.target.closest && e.target.closest(sel));
+      if (over !== hovering) { hovering = over; setScale(); }
     }, { passive: true });
     document.addEventListener('pointerleave', () => { shown = false; G.to(host, { opacity: 0, duration: .3 }); });
+    window.addEventListener('blur', () => { shown = false; G.to(host, { opacity: 0, duration: .3 }); });
+    window.addEventListener('pointerdown', () => { pressed = true; setScale(); });
+    window.addEventListener('pointerup', () => { pressed = false; setScale(); });
 
     G.ticker.add((t, dt) => {
-      const f = dt / 16.67;
-      const k1 = 1 - Math.pow(.5, f);
-      const k2 = 1 - Math.pow(.6, f);
-      h.x += (p.x - h.x) * k1; h.y += (p.y - h.y) * k1;
-      head.style.translate = `${h.x}px ${h.y}px`;
-      let px = h.x, py = h.y;
+      // the head sits exactly on the pointer; only the trail eases behind it
+      head.style.translate = `${p.x}px ${p.y}px`;
+      const k = 1 - Math.pow(.6, dt / 16.67);
+      let px = p.x, py = p.y;
       trail.forEach((s) => {
-        s.x += (px - s.x) * k2; s.y += (py - s.y) * k2;
+        s.x += (px - s.x) * k; s.y += (py - s.y) * k;
         s.el.style.translate = `${s.x}px ${s.y}px`;
         px = s.x; py = s.y;
       });
     });
-
-    const sel = 'a, button, [data-cursor=hover], [data-proximity]';
-    document.addEventListener('pointerover', (e) => {
-      if (!e.target.closest(sel)) return;
-      hovering = true;
-      G.to(head, { scale: 2.6, rotation: 45, backgroundColor: 'rgba(0,0,0,0)', boxShadow: `inset 0 0 0 1.5px ${css('--accent')}`, duration: .35, ease: 'power3.out' });
-      G.to(trail.map((s) => s.el), { autoAlpha: 0, duration: .2 });
-    });
-    document.addEventListener('pointerout', (e) => {
-      if (!e.target.closest(sel) || (e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(sel))) return;
-      hovering = false;
-      G.to(head, { scale: 1, rotation: 0, backgroundColor: css('--accent'), boxShadow: 'inset 0 0 0 0px rgba(0,0,0,0)', duration: .35, ease: 'power3.out' });
-      trail.forEach((s, i) => G.to(s.el, { autoAlpha: .5 * (1 - i / N), duration: .3 }));
-    });
-    window.addEventListener('pointerdown', () => G.to(head, { scale: '*=0.7', duration: .15 }));
-    window.addEventListener('pointerup', () => G.to(head, { scale: hovering ? 2.6 : 1, duration: .3 }));
   }
 
   /* ---------------- Nav + menu ---------------- */
@@ -277,6 +271,24 @@
     }));
     const top = $('#to-top');
     if (top) top.addEventListener('click', () => scrollToTarget('#top'));
+  }
+
+  /* ---------------- Avatar peek ---------------- */
+  function initPeek() {
+    const brand = $('#brand');
+    const btn = $('#avatar-btn');
+    if (!brand || !btn) return;
+    let timer;
+    const set = (open) => {
+      brand.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      clearTimeout(timer);
+      if (open && !fine) timer = setTimeout(() => set(false), 2500);
+    };
+    btn.addEventListener('click', () => set(!brand.classList.contains('is-open')));
+    brand.addEventListener('mouseleave', () => set(false));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    document.addEventListener('pointerdown', (e) => { if (!brand.contains(e.target)) set(false); });
   }
 
   /* ---------------- Helpers ---------------- */
@@ -544,17 +556,6 @@ void main(){
       G.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: first, start: 'top 90%', end: 'top 35%', scrub: true } })
         .to('#projects-head', { opacity: 0 }, 0)
         .fromTo('#projects-dim', { opacity: .25 }, { opacity: .8 }, 0);
-    }
-
-    // pill that follows the cursor over a project screen
-    if (fine) {
-      $$('[data-follow]').forEach((el) => {
-        el.addEventListener('pointermove', (e) => {
-          const r = el.getBoundingClientRect();
-          el.style.setProperty('--px', `${e.clientX - r.left}px`);
-          el.style.setProperty('--py', `${e.clientY - r.top}px`);
-        });
-      });
     }
 
     // Neer: the live phone
@@ -997,6 +998,7 @@ void main(){
     initTheme();
     initLenis();
     initNav();
+    initPeek();
     initHero();
     $$('[data-silk]').forEach((c, i) => initSilk(c, i === 0));
     initProximity();
