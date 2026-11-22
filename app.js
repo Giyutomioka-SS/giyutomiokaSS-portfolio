@@ -30,10 +30,12 @@
   /* ---------------- Theme ---------------- */
   function initTheme() {
     const btn = $('#theme-toggle');
+    const knob = $('.tswitch__knob', btn);
     const meta = $('meta[name="theme-color"]');
     const sync = () => {
-      const t = root.getAttribute('data-theme');
-      btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      const dark = root.getAttribute('data-theme') === 'dark';
+      btn.setAttribute('aria-checked', String(dark));
+      btn.setAttribute('aria-label', dark ? 'Dark mode on. Switch to light mode' : 'Light mode on. Switch to dark mode');
       if (meta) meta.setAttribute('content', css('--bg'));
     };
     sync();
@@ -45,23 +47,44 @@
       window.dispatchEvent(new CustomEvent('themechange'));
     };
 
+    // a small burst of squares from the knob
+    const sparks = (x, y) => {
+      if (reduce) return;
+      for (let i = 0; i < 8; i++) {
+        const d = document.createElement('i');
+        d.className = 'spark';
+        d.style.left = x + 'px'; d.style.top = y + 'px';
+        document.body.appendChild(d);
+        const a = (i / 8) * Math.PI * 2 + Math.random() * .4;
+        const dist = 26 + Math.random() * 22;
+        d.animate([
+          { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1 },
+          { transform: `translate(${Math.cos(a) * dist}px, ${Math.sin(a) * dist}px) rotate(${180 + Math.random() * 180}deg) scale(.2)`, opacity: 0 },
+        ], { duration: 560 + Math.random() * 200, easing: 'cubic-bezier(.22,1,.36,1)' }).onfinish = () => d.remove();
+      }
+    };
+
     btn.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      const r = btn.getBoundingClientRect();
-      const x = r.left + r.width / 2;
-      const y = r.top + r.height / 2;
+      const kr = knob.getBoundingClientRect();
+      // the knob will travel to the far side; start the reveal where it lands
+      const travel = btn.getBoundingClientRect().width - kr.width - 8;
+      const x = kr.left + kr.width / 2 + (next === 'light' ? travel : -travel);
+      const y = kr.top + kr.height / 2;
       if (document.startViewTransition && !reduce) {
         const t = document.startViewTransition(() => apply(next));
         t.ready.then(() => {
           const rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
           root.animate(
             { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${rad}px at ${x}px ${y}px)`] },
-            { duration: 750, easing: 'cubic-bezier(.76,0,.24,1)', pseudoElement: '::view-transition-new(root)' }
+            { duration: 800, easing: 'cubic-bezier(.76,0,.24,1)', pseudoElement: '::view-transition-new(root)' }
           );
         }).catch(() => {});
+        t.finished.then(() => sparks(x, y)).catch(() => {});
       } else {
         root.classList.add('theme-fade');
         apply(next);
+        sparks(x, y);
         setTimeout(() => root.classList.remove('theme-fade'), 600);
       }
     });
@@ -211,14 +234,16 @@
     onScroll();
 
     const links = $$('.nav__links a, .menu a[data-scroll]');
+    const setActive = (id) => links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === id));
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (!en.isIntersecting) return;
-        const id = '#' + en.target.id;
-        links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === id));
+        // the hero has no nav link, so landing on it clears every highlight
+        setActive(en.target.id === 'hero' ? null : '#' + en.target.id);
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    $$('main > section[id]').forEach((s) => io.observe(s));
+    $$('main section[id]').forEach((s) => io.observe(s));
+    window.addEventListener('scroll', () => { if (scrollY < innerHeight * .5) setActive(null); }, { passive: true });
 
     const setOpen = (v) => {
       open = v;
@@ -712,10 +737,10 @@ void main(){
   function initClock() {
     const el = $('#clock');
     if (!el) return;
-    const f = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', hour12: true });
+    const f = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
     const tick = () => { el.textContent = f.format(new Date()); };
     tick();
-    setInterval(tick, 15000);
+    setInterval(tick, 1000);
   }
 
   function initTalk() {
@@ -845,7 +870,10 @@ void main(){
 
     G.from('[data-blurb] > *', { y: 24, duration: .8, stagger: .12, ease: 'power3.out', scrollTrigger: { trigger: '[data-blurb]', start: 'top 88%', once: true } });
     G.from('#cta-round', { scale: 0, rotation: -40, duration: 1.3, ease: 'elastic.out(1, 0.55)', scrollTrigger: { trigger: '#cta-round', start: 'top 92%', once: true } });
-    G.from('.row', { y: 22, duration: .6, stagger: .05, ease: 'power3.out', scrollTrigger: { trigger: '.rows', start: 'top 95%', once: true } });
+    G.timeline({ scrollTrigger: { trigger: '.rows', start: 'top 92%', once: true } })
+      .from('.row__line', { scaleX: 0, duration: 1.1, stagger: .07, ease: 'expo.out' }, 0)
+      .from('.row > a', { y: 18, duration: .7, stagger: .07, ease: 'power3.out' }, .15);
+    G.from('[data-top]', { y: -12, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '[data-top]', start: 'top 92%', once: true } });
 
     // circular text spins faster with scroll velocity
     const ring = G.to('.cta-round__ring', { rotation: 360, duration: 16, repeat: -1, ease: 'none', transformOrigin: '50% 50%' });
@@ -902,19 +930,22 @@ void main(){
   }
 
   function initCopy() {
-    $$('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    $$('[data-copy]').forEach((b) => b.addEventListener('click', async (e) => {
+      e.stopPropagation();
       const text = b.dataset.copy;
+      const label = b.getAttribute('aria-label');
       let ok = false;
-      try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {
+      try { await navigator.clipboard.writeText(text); ok = true; } catch (err) {
         const ta = document.createElement('textarea');
         ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
         document.body.appendChild(ta); ta.select();
-        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        try { ok = document.execCommand('copy'); } catch (er) { ok = false; }
         ta.remove();
       }
-      b.textContent = ok ? 'Copied' : 'Copy failed';
-      b.classList.toggle('is-done', ok);
-      setTimeout(() => { b.textContent = 'Copy'; b.classList.remove('is-done'); }, 1800);
+      if (!ok) return;
+      b.classList.add('is-done');
+      b.setAttribute('aria-label', 'Copied');
+      setTimeout(() => { b.classList.remove('is-done'); b.setAttribute('aria-label', label); }, 1800);
     }));
   }
 
@@ -945,21 +976,6 @@ void main(){
   function initFooter() {
     const y = $('#year');
     if (y) y.textContent = new Date().getFullYear();
-    const word = $('.footer__word');
-    if (!word) return;
-    const inner = $('span', word);
-    const fit = () => {
-      word.style.fontSize = '100px';
-      const w = inner.getBoundingClientRect().width;
-      const avail = word.parentElement.clientWidth - 2 * parseFloat(getComputedStyle($('.footer__cols')).paddingLeft);
-      word.style.fontSize = `${Math.floor((avail / w) * 100)}px`;
-    };
-    fit();
-    if (document.fonts) document.fonts.ready.then(fit);
-    window.addEventListener('resize', fit);
-    if (hasGsap && !reduce) {
-      G.from(word, { yPercent: 40, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: word, start: 'top 98%', once: true } });
-    }
   }
 
   /* ---------------- Boot ---------------- */
